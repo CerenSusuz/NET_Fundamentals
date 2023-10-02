@@ -20,10 +20,9 @@ namespace WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(string message)
+        public MainWindow()
         {
             InitializeComponent();
-            TextBlockName.Text = message;
         }
     }
 }
