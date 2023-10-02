@@ -101,5 +101,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelloWorldLibrary\HelloWorldLibrary.csproj">
+      <Project>{c5026436-9d86-4b63-ab8a-ba52f600f5d6}</Project>
+      <Name>HelloWorldLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
