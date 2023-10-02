@@ -102,9 +102,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HelloWorldLibrary\HelloWorldLibrary.csproj">
-      <Project>{c5026436-9d86-4b63-ab8a-ba52f600f5d6}</Project>
-      <Name>HelloWorldLibrary</Name>
+    <ProjectReference Include="..\StandardLibraryConcat\StandardLibraryConcat.csproj">
+      <Project>{c5879798-f050-4fae-a3be-5a37088d79bb}</Project>
+      <Name>StandardLibraryConcat</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

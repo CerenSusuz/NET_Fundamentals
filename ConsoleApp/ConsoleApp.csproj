@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelloWorldLibrary\HelloWorldLibrary.csproj" />
+    <ProjectReference Include="..\StandardLibraryConcat\StandardLibraryConcat.csproj" />
   </ItemGroup>
 
 </Project>
