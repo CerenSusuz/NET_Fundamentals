@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-
-namespace FileSystemVisitorPL
+﻿namespace FileSystemVisitorPL
 {
-    public class FileSystemVisitor
+    public class FileSystemVisitor : IFileSystemVisitor
     {
         private readonly string rootFolder;
+        private readonly Func<string, bool> filter;
 
         public FileSystemVisitor(string rootPath)
         {
@@ -16,6 +13,18 @@ namespace FileSystemVisitorPL
             }
 
             rootFolder = rootPath;
+            filter = (path) => true; // Default filter accepts all items
+        }
+
+        public FileSystemVisitor(string rootPath, Func<string, bool> customFilter)
+        {
+            if (!Directory.Exists(rootPath))
+            {
+                throw new DirectoryNotFoundException("The specified root folder does not exist.");
+            }
+
+            rootFolder = rootPath;
+            filter = customFilter;
         }
 
         public IEnumerable<string> GetFilesAndFolders()
@@ -25,7 +34,10 @@ namespace FileSystemVisitorPL
 
         private IEnumerable<string> TraverseDirectory(string directory)
         {
-            yield return directory;
+            if (filter(directory))
+            {
+                yield return directory;
+            }
 
             foreach (string subdirectory in Directory.GetDirectories(directory))
             {
@@ -37,7 +49,10 @@ namespace FileSystemVisitorPL
 
             foreach (string file in Directory.GetFiles(directory))
             {
-                yield return file;
+                if (filter(file))
+                {
+                    yield return file;
+                }
             }
         }
     }
