@@ -9,7 +9,7 @@
         {
             if (!Directory.Exists(rootPath))
             {
-                throw new DirectoryNotFoundException("The specified root folder does not exist.");
+                ValidateRootDirectory();
             }
 
             rootFolder = rootPath;
@@ -20,7 +20,7 @@
         {
             if (!Directory.Exists(rootPath))
             {
-                throw new DirectoryNotFoundException("The specified root folder does not exist.");
+                ValidateRootDirectory();
             }
 
             rootFolder = rootPath;
@@ -55,5 +55,14 @@
                 }
             }
         }
+
+        private void ValidateRootDirectory()
+        {
+            if (!Directory.Exists(rootFolder))
+            {
+                throw new DirectoryNotFoundException("The specified root folder does not exist.");
+            }
+        }
+
     }
 }
