@@ -3,7 +3,7 @@
     public class FileSystemVisitor : IFileSystemVisitor
     {
         private readonly string rootFolder;
-        private readonly Func<string, bool> searchFilter;
+        private readonly Func<string, bool> searchFilter = _ => true;
 
         public FileSystemVisitor(string rootPath)
         {
@@ -13,7 +13,6 @@
             }
 
             rootFolder = rootPath;
-            searchFilter = (path) => true;
         }
 
         public FileSystemVisitor(string rootPath, Func<string, bool> customFilter)
