@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StandardLibraryConcat", "Fu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "FundamentalsTasks\WpfApp\WpfApp.csproj", "{948D086A-01CE-48F3-9244-BFB37D4717E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdvancedC#", "AdvancedC#", "{3CC247BE-9B08-49F1-923D-D5AC2C211ED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemVisitorPL", "AdvancedC#\FileSystemVisitorPL\FileSystemVisitorPL.csproj", "{8884632E-58E8-4287-85F5-E830376F1DEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{948D086A-01CE-48F3-9244-BFB37D4717E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{948D086A-01CE-48F3-9244-BFB37D4717E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{948D086A-01CE-48F3-9244-BFB37D4717E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8884632E-58E8-4287-85F5-E830376F1DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8884632E-58E8-4287-85F5-E830376F1DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8884632E-58E8-4287-85F5-E830376F1DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8884632E-58E8-4287-85F5-E830376F1DEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{4697C615-45C4-4791-B76A-39D6AFCBF82C} = {98FC88BB-543E-4EE7-A47E-85F8566E5146}
 		{226373D8-83FC-490A-A997-14034063DCA6} = {98FC88BB-543E-4EE7-A47E-85F8566E5146}
 		{948D086A-01CE-48F3-9244-BFB37D4717E5} = {98FC88BB-543E-4EE7-A47E-85F8566E5146}
+		{8884632E-58E8-4287-85F5-E830376F1DEE} = {3CC247BE-9B08-49F1-923D-D5AC2C211ED1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
