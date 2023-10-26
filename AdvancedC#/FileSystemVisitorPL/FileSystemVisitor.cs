@@ -13,7 +13,7 @@
             }
 
             rootFolder = rootPath;
-            searchFilter = (path) => true; // Default filter accepts all items
+            searchFilter = (path) => true;
         }
 
         public FileSystemVisitor(string rootPath, Func<string, bool> customFilter)
