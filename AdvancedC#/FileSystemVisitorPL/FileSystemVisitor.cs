@@ -2,6 +2,10 @@
 {
     public class FileSystemVisitor : IFileSystemVisitor
     {
+        public event EventHandler SearchStarted;
+
+        public event EventHandler SearchFinished;
+
         private readonly string rootFolder;
         private readonly Func<string, bool> searchFilter = _ => true;
 
@@ -28,7 +32,14 @@
 
         public IEnumerable<string> GetFilesAndFolders()
         {
-            return TraverseDirectory(rootFolder);
+            OnSearchStarted();
+
+            foreach (var item in TraverseDirectory(rootFolder))
+            {
+                yield return item;
+            }
+
+            OnSearchFinished();
         }
 
         private IEnumerable<string> TraverseDirectory(string directory)
@@ -63,5 +74,14 @@
             }
         }
 
+        protected virtual void OnSearchStarted()
+        {
+            SearchStarted?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnSearchFinished()
+        {
+            SearchFinished?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

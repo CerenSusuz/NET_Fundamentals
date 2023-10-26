@@ -12,6 +12,7 @@ Func<string, bool> customFilter = item =>
     {
         return true;
     }
+
     string extension = Path.GetExtension(item);
     
     return !string.IsNullOrWhiteSpace(extension) && extension.Equals(searchFilter, StringComparison.OrdinalIgnoreCase);
@@ -26,7 +27,12 @@ if (string.IsNullOrEmpty(rootPath))
 
 var fileSystemVisitor = new FileSystemVisitor(rootPath, customFilter);
 
-foreach (string item in fileSystemVisitor.GetFilesAndFolders())
+fileSystemVisitor.SearchStarted += (sender, e) => Console.WriteLine("Search started.");
+fileSystemVisitor.SearchFinished += (sender, e) => Console.WriteLine("Search finished.");
+
+var results = fileSystemVisitor.GetFilesAndFolders().ToList();
+
+foreach (string item in results)
 {
     Console.WriteLine(item);
 }
