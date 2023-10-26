@@ -13,7 +13,7 @@
             }
 
             rootFolder = rootPath;
-            filter = (path) => true; // Default filter accepts all items
+            searchFilter = (path) => true; // Default filter accepts all items
         }
 
         public FileSystemVisitor(string rootPath, Func<string, bool> customFilter)
@@ -24,7 +24,7 @@
             }
 
             rootFolder = rootPath;
-            filter = customFilter;
+            searchFilter = customFilter;
         }
 
         public IEnumerable<string> GetFilesAndFolders()
@@ -34,7 +34,7 @@
 
         private IEnumerable<string> TraverseDirectory(string directory)
         {
-            if (filter(directory))
+            if (searchFilter(directory))
             {
                 yield return directory;
             }
@@ -49,7 +49,7 @@
 
             foreach (string file in Directory.GetFiles(directory))
             {
-                if (filter(file))
+                if (searchFilter(file))
                 {
                     yield return file;
                 }
