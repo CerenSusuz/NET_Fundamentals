@@ -1,10 +1,32 @@
 ﻿namespace FileSystemVisitorPL
 {
+    public class FileSystemEventArgs : EventArgs
+    {
+        public bool AbortSearch { get; set; }
+
+        public bool ExcludeItem { get; set; }
+
+        public string Item { get; set; }
+
+        public FileSystemEventArgs(string item)
+        {
+            Item = item;
+        }
+    }
+
     public class FileSystemVisitor : IFileSystemVisitor
     {
         public event EventHandler SearchStarted;
 
         public event EventHandler SearchFinished;
+
+        public event EventHandler<FileSystemEventArgs> FileFound;
+
+        public event EventHandler<FileSystemEventArgs> DirectoryFound;
+
+        public event EventHandler<FileSystemEventArgs> FilteredFileFound;
+
+        public event EventHandler<FileSystemEventArgs> FilteredDirectoryFound;
 
         private readonly string rootFolder;
         private readonly Func<string, bool> searchFilter = _ => true;
@@ -46,7 +68,16 @@
         {
             if (searchFilter(directory))
             {
+                var args = new FileSystemEventArgs(directory);
+                OnFilteredDirectoryFound(args);
+                if (args.ExcludeItem) yield break;
+                if (args.AbortSearch) OnSearchFinished();
+
                 yield return directory;
+            }
+            else
+            {
+                OnDirectoryFound(new FileSystemEventArgs(directory));
             }
 
             foreach (string subdirectory in Directory.GetDirectories(directory))
@@ -61,7 +92,16 @@
             {
                 if (searchFilter(file))
                 {
+                    var args = new FileSystemEventArgs(file);
+                    OnFilteredFileFound(args);
+                    if (args.ExcludeItem) yield break;
+                    if (args.AbortSearch) OnSearchFinished();
+
                     yield return file;
+                }
+                else
+                {
+                    OnFileFound(new FileSystemEventArgs(file));
                 }
             }
         }
@@ -82,6 +122,26 @@
         protected virtual void OnSearchFinished()
         {
             SearchFinished?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnFileFound(FileSystemEventArgs e)
+        {
+            FileFound?.Invoke(this, e);
+        }
+
+        protected virtual void OnDirectoryFound(FileSystemEventArgs e)
+        {
+            DirectoryFound?.Invoke(this, e);
+        }
+
+        protected virtual void OnFilteredFileFound(FileSystemEventArgs e)
+        {
+            FilteredFileFound?.Invoke(this, e);
+        }
+
+        protected virtual void OnFilteredDirectoryFound(FileSystemEventArgs e)
+        {
+            FilteredDirectoryFound?.Invoke(this, e);
         }
     }
 }
