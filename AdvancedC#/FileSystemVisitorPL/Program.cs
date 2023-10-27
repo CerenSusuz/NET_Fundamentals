@@ -1,4 +1,4 @@
-﻿using FileSystemVisitorPL;
+using FileSystemVisitorPL;
 
 Console.Write("Enter the root folder path: ");
 string rootPath = Console.ReadLine();
