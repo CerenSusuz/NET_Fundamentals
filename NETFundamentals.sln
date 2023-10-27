@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "FundamentalsTasks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemVisitorPL", "AdvancedC#\FileSystemVisitorPL\FileSystemVisitorPL.csproj", "{601389D2-FF96-47F8-8AE3-8E6577C276FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemVisitorTests", "AdvancedC#\FileSystemVisitorTests\FileSystemVisitorTests.csproj", "{16B32515-FE27-47A3-A96C-5A3A5AE167A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{601389D2-FF96-47F8-8AE3-8E6577C276FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{601389D2-FF96-47F8-8AE3-8E6577C276FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{601389D2-FF96-47F8-8AE3-8E6577C276FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{3E722779-1761-4208-B844-DE69442A49C7} = {D208E76A-7A75-4BEC-A891-D5AF74792EAF}
 		{948D086A-01CE-48F3-9244-BFB37D4717E5} = {D208E76A-7A75-4BEC-A891-D5AF74792EAF}
 		{601389D2-FF96-47F8-8AE3-8E6577C276FD} = {C5AA7F2E-6733-4B87-92A4-E74F2C7CA3B4}
+		{16B32515-FE27-47A3-A96C-5A3A5AE167A0} = {C5AA7F2E-6733-4B87-92A4-E74F2C7CA3B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
