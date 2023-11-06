@@ -1,19 +1,5 @@
 namespace FileSystemVisitorPL
 {
-    public class FileSystemEventArgs : EventArgs
-    {
-        public bool AbortSearch { get; set; }
-
-        public bool ExcludeItem { get; set; }
-
-        public string Item { get; set; }
-
-        public FileSystemEventArgs(string item)
-        {
-            Item = item;
-        }
-    }
-
     public class FileSystemVisitor : IFileSystemVisitor
     {
         public event EventHandler SearchStarted;
@@ -68,12 +54,17 @@ namespace FileSystemVisitorPL
         {
             if (searchFilter(directory))
             {
-                var args = new FileSystemEventArgs(directory);
-                OnFilteredDirectoryFound(args);
-                if (args.ExcludeItem) yield break;
-                if (args.AbortSearch) OnSearchFinished();
+                var (exclude, abort) = HandleEventsForFilteredItem(directory);
 
-                yield return directory;
+                if (!exclude)
+                {
+                    yield return directory;
+                }
+                if (abort)
+                {
+                    OnSearchFinished();
+                    yield break;
+                }
             }
             else
             {
@@ -92,18 +83,39 @@ namespace FileSystemVisitorPL
             {
                 if (searchFilter(file))
                 {
-                    var args = new FileSystemEventArgs(file);
-                    OnFilteredFileFound(args);
-                    if (args.ExcludeItem) yield break;
-                    if (args.AbortSearch) OnSearchFinished();
+                    var (exclude, abort) = HandleEventsForFilteredItem(file);
+                    
+                    if (!exclude)
+                    {
+                        yield return file;
+                    }
 
-                    yield return file;
+                    if (abort)
+                    {
+                        OnSearchFinished();
+
+                        yield break;
+                    }
                 }
                 else
                 {
                     OnFileFound(new FileSystemEventArgs(file));
                 }
             }
+        }
+
+        private (bool Exclude, bool Abort) HandleEventsForFilteredItem(string item)
+        {
+            var args = new FileSystemEventArgs(item);
+            if (Path.HasExtension(item))
+            {
+                OnFilteredFileFound(args);
+            }
+            else
+            {
+                OnFilteredDirectoryFound(args);
+            }
+            return (args.ExcludeItem, args.AbortSearch);
         }
 
         private void ValidateRootDirectory()
