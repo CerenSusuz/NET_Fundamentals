@@ -1,57 +1,62 @@
 ﻿using Xunit;
+using FileSystemVisitorPL;
 
-namespace FileSystemVisitorTests;
-
-public class FileSystemVisitorTests
+namespace FileSystemVisitorTests
 {
-    private readonly string _testDirectory;
-
-    public FileSystemVisitorTests()
+    public class FileSystemVisitorTests
     {
-        var tempPath = Path.GetTempPath();
-        _testDirectory = Path.Combine(tempPath, Guid.NewGuid().ToString());
+        private readonly string _testDirectory;
+        private readonly IFileExplorer _fileExplorer;
 
-        Directory.CreateDirectory(_testDirectory);
-        Directory.CreateDirectory(Path.Combine(_testDirectory, "dir1"));
-        Directory.CreateDirectory(Path.Combine(_testDirectory, "dir2"));
+        public FileSystemVisitorTests()
+        {
+            var tempPath = Path.GetTempPath();
+            _testDirectory = Path.Combine(tempPath, Guid.NewGuid().ToString());
 
-        File.WriteAllText(Path.Combine(_testDirectory, "dir1", "file1.txt"), "content");
-        File.WriteAllText(Path.Combine(_testDirectory, "dir1", "file2.txt"), "content");
-        File.WriteAllText(Path.Combine(_testDirectory, "dir2", "file3.txt"), "content");
-    }
+            Directory.CreateDirectory(_testDirectory);
+            Directory.CreateDirectory(Path.Combine(_testDirectory, "dir1"));
+            Directory.CreateDirectory(Path.Combine(_testDirectory, "dir2"));
 
-    [Fact]
-    public void Test_GetFilesAndFolders_WithoutFilter()
-    {
-        // Arrange
-        var visitor = new FileSystemVisitorPL.FileSystemVisitor(_testDirectory);
+            File.WriteAllText(Path.Combine(_testDirectory, "dir1", "file1.txt"), "content");
+            File.WriteAllText(Path.Combine(_testDirectory, "dir1", "file2.txt"), "content");
+            File.WriteAllText(Path.Combine(_testDirectory, "dir2", "file3.txt"), "content");
 
-        // Act
-        var result = visitor.GetFilesAndFolders().ToList();
+            _fileExplorer = new FileExplorer();
+        }
 
-        // Assert
-        Assert.Equal(6, result.Count);
-        Assert.Contains(Path.Combine(_testDirectory, "dir1"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir2"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir1", "file2.txt"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir2", "file3.txt"), result);
-    }
+        [Fact]
+        public void Test_GetFilesAndFolders_WithoutFilter()
+        {
+            // Arrange
+            var visitor = new FileSystemVisitor(_testDirectory, _fileExplorer);
 
-    [Fact]
-    public void Test_GetFilesAndFolders_WithFilter()
-    {
-        // Arrange
-        Func<string, bool> filter = path => path.EndsWith(".txt");
-        var visitor = new FileSystemVisitorPL.FileSystemVisitor(_testDirectory, filter);
+            // Act
+            var result = visitor.GetFilesAndFolders().ToList();
 
-        // Act
-        var result = visitor.GetFilesAndFolders().ToList();
+            // Assert
+            Assert.Equal(6, result.Count);
+            Assert.Contains(Path.Combine(_testDirectory, "dir1"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir2"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir1", "file2.txt"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir2", "file3.txt"), result);
+        }
 
-        // Assert
-        Assert.Equal(3, result.Count);
-        Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir1", "file2.txt"), result);
-        Assert.Contains(Path.Combine(_testDirectory, "dir2", "file3.txt"), result);
+        [Fact]
+        public void Test_GetFilesAndFolders_WithFilter()
+        {
+            // Arrange
+            Func<string, bool> filter = path => path.EndsWith(".txt");
+            var visitor = new FileSystemVisitor(_testDirectory, filter, _fileExplorer);
+
+            // Act
+            var result = visitor.GetFilesAndFolders().ToList();
+
+            // Assert
+            Assert.Equal(3, result.Count);
+            Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir1", "file2.txt"), result);
+            Assert.Contains(Path.Combine(_testDirectory, "dir2", "file3.txt"), result);
+        }
     }
 }

@@ -16,26 +16,29 @@ namespace FileSystemVisitorPL
 
         private readonly string rootFolder;
         private readonly Func<string, bool> searchFilter = _ => true;
+        private readonly IFileExplorer _fileExplorer;
 
-        public FileSystemVisitor(string rootPath)
+        public FileSystemVisitor(string rootPath, IFileExplorer fileExplorer)
         {
-            if (!Directory.Exists(rootPath))
+            if (!fileExplorer.Exists(rootPath))
             {
                 ValidateRootDirectory();
             }
 
             rootFolder = rootPath;
+            _fileExplorer = fileExplorer;
         }
 
-        public FileSystemVisitor(string rootPath, Func<string, bool> customFilter)
+        public FileSystemVisitor(string rootPath, Func<string, bool> customFilter, IFileExplorer fileExplorer)
         {
-            if (!Directory.Exists(rootPath))
+            if (!fileExplorer.Exists(rootPath))
             {
                 ValidateRootDirectory();
             }
 
             rootFolder = rootPath;
             searchFilter = customFilter;
+            _fileExplorer = fileExplorer;
         }
 
         public IEnumerable<string> GetFilesAndFolders()
@@ -71,7 +74,7 @@ namespace FileSystemVisitorPL
                 OnDirectoryFound(new FileSystemEventArgs(directory));
             }
 
-            foreach (string subdirectory in Directory.GetDirectories(directory))
+            foreach (string subdirectory in _fileExplorer.GetDirectories(directory))
             {
                 foreach (string item in TraverseDirectory(subdirectory))
                 {
@@ -79,7 +82,7 @@ namespace FileSystemVisitorPL
                 }
             }
 
-            foreach (string file in Directory.GetFiles(directory))
+            foreach (string file in _fileExplorer.GetFiles(directory))
             {
                 if (searchFilter(file))
                 {

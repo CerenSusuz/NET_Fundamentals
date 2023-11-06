@@ -14,18 +14,19 @@ Func<string, bool> customFilter = item =>
     }
 
     string extension = Path.GetExtension(item);
-    
+
     return !string.IsNullOrWhiteSpace(extension) && extension.Equals(searchFilter, StringComparison.OrdinalIgnoreCase);
 };
 
 if (string.IsNullOrEmpty(rootPath))
 {
     Console.WriteLine("Invalid root folder path.");
-    
+
     return;
 }
 
-var fileSystemVisitor = new FileSystemVisitor(rootPath, customFilter);
+IFileExplorer fileExplorer = new FileExplorer();
+var fileSystemVisitor = new FileSystemVisitor(rootPath, customFilter, fileExplorer);
 
 fileSystemVisitor.SearchStarted += (sender, e) => Console.WriteLine("---Search started.");
 fileSystemVisitor.SearchFinished += (sender, e) => Console.WriteLine("---Search finished.");
