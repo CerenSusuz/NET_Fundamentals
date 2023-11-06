@@ -7,6 +7,8 @@ namespace FileSystemVisitorTests
     {
         private readonly string _testDirectory;
         private readonly IFileExplorer _fileExplorer;
+        private const int ExpectedFilesFoundCount = 6;
+        private const int ExpectedFilteredFilesFoundCount = 3;
 
         public FileSystemVisitorTests()
         {
@@ -34,7 +36,7 @@ namespace FileSystemVisitorTests
             var result = visitor.GetFilesAndFolders().ToList();
 
             // Assert
-            Assert.Equal(6, result.Count);
+            Assert.Equal(ExpectedFilesFoundCount, result.Count);
             Assert.Contains(Path.Combine(_testDirectory, "dir1"), result);
             Assert.Contains(Path.Combine(_testDirectory, "dir2"), result);
             Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
@@ -53,7 +55,7 @@ namespace FileSystemVisitorTests
             var result = visitor.GetFilesAndFolders().ToList();
 
             // Assert
-            Assert.Equal(3, result.Count);
+            Assert.Equal(ExpectedFilteredFilesFoundCount, result.Count);
             Assert.Contains(Path.Combine(_testDirectory, "dir1", "file1.txt"), result);
             Assert.Contains(Path.Combine(_testDirectory, "dir1", "file2.txt"), result);
             Assert.Contains(Path.Combine(_testDirectory, "dir2", "file3.txt"), result);
