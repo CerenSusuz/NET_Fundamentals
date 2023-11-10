@@ -48,6 +48,13 @@ namespace Task2
 
         private int ExtractNumber(string stringValue, int startIndex, bool isNegative)
         {
+            const int MaxSingleDigit = 9;
+            const int MaxTenthPlaceDigitForPositive = 7;
+            const int MaxTenthPlaceDigitForNegative = 8;
+            const int TenthPlaceDivisor = 10;
+            const string InvalidCharacterErrorMessage = "Invalid character found in the input string.";
+            const string OverflowErrorMessage = "Arithmetic operation resulted in an overflow.";
+
             int result = 0;
 
             for (int i = startIndex; i < stringValue.Length; i++)
@@ -56,14 +63,20 @@ namespace Task2
 
                 if (currentChar < '0' || currentChar > '9')
                 {
-                    throw new FormatException("Invalid character found in the input string.");
+                    throw new FormatException(InvalidCharacterErrorMessage);
                 }
 
                 int currentDigit = currentChar - '0';
+                bool isCurrentValueExceedsLimitForPositive = !isNegative && currentDigit > MaxTenthPlaceDigitForPositive;
+                bool isCurrentValueExceedsLimitForNegative = isNegative && currentDigit > MaxTenthPlaceDigitForNegative;
+                bool isCurrentDigitInvalid = currentDigit < 0 || currentDigit > MaxSingleDigit ||
+                    (!isCurrentValueExceedsLimitForNegative && result == int.MaxValue / TenthPlaceDivisor) ||
+                    (!isCurrentValueExceedsLimitForPositive && result == int.MaxValue / TenthPlaceDivisor) ||
+                    result > int.MaxValue / TenthPlaceDivisor;
 
-                if (result > int.MaxValue / 10 || (result == int.MaxValue / 10 && ((!isNegative && currentDigit > 7) || (isNegative && currentDigit > 8))))
+                if (isCurrentDigitInvalid)
                 {
-                    throw new OverflowException("Arithmetic operation resulted in an overflow.");
+                    throw new OverflowException(OverflowErrorMessage);
                 }
 
                 result = result * 10 + currentDigit;

@@ -6,6 +6,9 @@ namespace Task1
     {
         private static void Main(string[] args)
         {
+            const string QuitCommand = "q";
+            const string EmptyInputErrorMessage = "Empty input is not allowed!";
+
             Console.WriteLine("Enter input lines (Enter 'q' to exit):");
 
             while (true)
@@ -16,10 +19,10 @@ namespace Task1
 
                     if (string.IsNullOrWhiteSpace(input))
                     {
-                        throw new ArgumentException("Empty input is not allowed!");
+                        throw new ArgumentException(EmptyInputErrorMessage);
                     }
 
-                    if (input.ToLower() == "q")
+                    if (input.ToLower() == QuitCommand)
                     {
                         break;
                     }

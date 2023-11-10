@@ -15,17 +15,24 @@ namespace Task3
 
         public void AddTaskForUser(int userId, UserTask task)
         {
-            if (userId < 0)
+            const string InvalidUserIdMessage = "Invalid userId";
+            const string UserNotFoundMessage = "User not found";
+            const string TaskExistsMessage = "The task already exists";
+
+            if (userId < default(int))
             {
-                throw new ArgumentException("Invalid userId");
+                throw new ArgumentException(InvalidUserIdMessage);
             }
-               
-            var user = _userDao.GetUser(userId) ?? throw new InvalidOperationException("User not found");
+
+            var user = _userDao.GetUser(userId) ?? throw new InvalidOperationException(UserNotFoundMessage);
             var tasks = user.Tasks;
 
-            if (tasks.Any(t => string.Equals(task.Description, t.Description, StringComparison.OrdinalIgnoreCase)))
+            Func<UserTask, bool> hasDuplicateDescription = existingTask =>
+                string.Equals(task.Description, existingTask.Description, StringComparison.OrdinalIgnoreCase);
+
+            if (tasks.Any(hasDuplicateDescription))
             {
-                throw new ArgumentException("The task already exists");
+                throw new ArgumentException(TaskExistsMessage);
             }
 
             tasks.Add(task);
