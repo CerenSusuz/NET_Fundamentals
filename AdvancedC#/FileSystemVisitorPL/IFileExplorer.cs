@@ -1,13 +1,12 @@
-﻿namespace FileSystemVisitorPL
+﻿namespace FileSystemVisitorPL;
+
+public interface IFileExplorer
 {
-    public interface IFileExplorer
-    {
-        IEnumerable<string> GetDirectories(string path);
+    IEnumerable<string> GetDirectories(string path);
 
-        IEnumerable<string> GetFiles(string path);
+    IEnumerable<string> GetFiles(string path);
 
-        string GetExtension(string path);
+    string GetExtension(string path);
 
-        bool Exists(string path);
-    }
+    bool Exists(string path);
 }

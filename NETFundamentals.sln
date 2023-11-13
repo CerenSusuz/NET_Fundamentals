@@ -22,6 +22,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemVisitorPL", "Adva
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemVisitorTests", "AdvancedC#\FileSystemVisitorTests\FileSystemVisitorTests.csproj", "{16B32515-FE27-47A3-A96C-5A3A5AE167A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reflection", "Reflection", "{C197E5EB-64E7-4B9D-BC19-7793DBA3CC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomConfigurationDemo", "Reflection\CustomConfigurationDemo\CustomConfigurationDemo.csproj", "{85F239AD-F447-4BA6-994D-9556987D594F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,10 @@ Global
 		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B32515-FE27-47A3-A96C-5A3A5AE167A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F239AD-F447-4BA6-994D-9556987D594F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F239AD-F447-4BA6-994D-9556987D594F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F239AD-F447-4BA6-994D-9556987D594F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F239AD-F447-4BA6-994D-9556987D594F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,7 @@ Global
 		{3E722779-1761-4208-B844-DE69442A49C7} = {D208E76A-7A75-4BEC-A891-D5AF74792EAF}
 		{601389D2-FF96-47F8-8AE3-8E6577C276FD} = {C5AA7F2E-6733-4B87-92A4-E74F2C7CA3B4}
 		{16B32515-FE27-47A3-A96C-5A3A5AE167A0} = {C5AA7F2E-6733-4B87-92A4-E74F2C7CA3B4}
+		{85F239AD-F447-4BA6-994D-9556987D594F} = {C197E5EB-64E7-4B9D-BC19-7793DBA3CC96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
