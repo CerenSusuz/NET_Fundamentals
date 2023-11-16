@@ -8,19 +8,22 @@ public static class ConfigurationProviderManager
 {
     private static readonly Dictionary<Type, IConfigurationProvider> Providers = new();
 
-    public static IConfigurationProvider GetProvider(Type providerType)
+    public static IConfigurationProvider GetProvider(IConfigurationProvider provider)
     {
-        if (providerType == null)
+        if (provider == null)
         {
-            throw new ArgumentNullException(nameof(providerType));
+            throw new ArgumentNullException(nameof(provider));
         }
 
-        if (!Providers.TryGetValue(providerType, out IConfigurationProvider provider))
+        var providerType = provider.GetType();
+
+        if (!Providers.TryGetValue(providerType, out IConfigurationProvider existingProvider))
         {
-            provider = Activator.CreateInstance(providerType) as IConfigurationProvider;
             Providers.Add(providerType, provider);
+
+            return provider;
         }
 
-        return provider;
+        return existingProvider;
     }
 }

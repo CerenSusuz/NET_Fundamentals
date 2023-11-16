@@ -54,7 +54,7 @@ public abstract class ConfigurationComponentBase
         {
             var attribute = propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false)
                 .FirstOrDefault() as BaseConfigurationItemAttribute;
-            var provider = ConfigurationProviderManager.GetProvider(providerType: attribute.ProviderType);
+            var provider = ConfigurationProviderManager.GetProvider(attribute.ProviderType);
 
             propertyInfo.SetValue(this, provider.GetValue(attribute.SettingName, propertyInfo.PropertyType));
         }
@@ -69,7 +69,7 @@ public abstract class ConfigurationComponentBase
         {
             var attribute = propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false)
                 .FirstOrDefault() as BaseConfigurationItemAttribute;
-            var provider = ConfigurationProviderManager.GetProvider(providerType: attribute.ProviderType);
+            var provider = ConfigurationProviderManager.GetProvider(attribute.ProviderType);
 
             provider.SetValue(attribute.SettingName, propertyInfo.GetValue(this));
         }
