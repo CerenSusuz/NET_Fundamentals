@@ -2,7 +2,7 @@
 
 namespace CustomConfigurationDemo.Attributes;
 
-public class ConfigurationManagerConfigurationItemAttribute : ConfigurationItemAttribute
+public class ConfigurationManagerConfigurationItemAttribute : BaseConfigurationItemAttribute
 {
     public ConfigurationManagerConfigurationItemAttribute(string settingName)
         : base(settingName, typeof(ConfigurationManagerConfigurationProvider)) { }

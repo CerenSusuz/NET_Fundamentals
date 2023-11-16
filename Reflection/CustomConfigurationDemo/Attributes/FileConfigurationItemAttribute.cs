@@ -2,7 +2,7 @@
 
 namespace CustomConfigurationDemo.Attributes;
 
-public class FileConfigurationItemAttribute : ConfigurationItemAttribute
+public class FileConfigurationItemAttribute : BaseConfigurationItemAttribute
 {
     public FileConfigurationItemAttribute(string settingName)
         : base(settingName, typeof(FileConfigurationProvider)) { }
