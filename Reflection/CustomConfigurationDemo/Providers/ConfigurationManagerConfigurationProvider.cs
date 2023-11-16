@@ -1,30 +1,30 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Serializer = Newtonsoft.Json.JsonSerializer;
 
 namespace CustomConfigurationDemo.Providers;
 
 public class ConfigurationManagerConfigurationProvider : IConfigurationProvider
 {
-    private readonly string _appSettingsPath = Path.Combine(Environment.CurrentDirectory, "appsettings.json");
+    private readonly string _appSettingsPath;
     private Dictionary<string, string> _appSettings;
     private Serializer _serializer;
 
     public ConfigurationManagerConfigurationProvider()
+        : this(Path.Combine(Environment.CurrentDirectory, "appsettings.json"))
     {
+    }
+
+    public ConfigurationManagerConfigurationProvider(string appSettingsPath)
+    {
+        _appSettingsPath = appSettingsPath;
         _serializer = new Serializer();
         LoadSettingsFromFile();
     }
 
     private void LoadSettingsFromFile()
     {
-        using (var sr = new StreamReader(_appSettingsPath))
-        using (var reader = new JsonTextReader(sr))
+        using (var streamReader = new StreamReader(_appSettingsPath))
+        using (var reader = new JsonTextReader(streamReader))
         {
             _appSettings = _serializer.Deserialize<Dictionary<string, string>>(reader);
         }
@@ -34,10 +34,17 @@ public class ConfigurationManagerConfigurationProvider : IConfigurationProvider
     {
         _appSettings[key] = value.ToString();
 
-        using (var sw = new StreamWriter(_appSettingsPath))
-        using (var writer = new JsonTextWriter(sw))
+        try
         {
-            _serializer.Serialize(writer, _appSettings);
+            using (var streamWriter = new StreamWriter(_appSettingsPath))
+            using (var writer = new JsonTextWriter(streamWriter))
+            {
+                _serializer.Serialize(writer, _appSettings);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
 
@@ -46,4 +53,3 @@ public class ConfigurationManagerConfigurationProvider : IConfigurationProvider
         return Convert.ChangeType(_appSettings[key], valueType);
     }
 }
-

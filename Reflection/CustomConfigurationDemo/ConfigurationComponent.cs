@@ -2,7 +2,7 @@
 
 namespace CustomConfigurationDemo;
 
-public class ConfigurationComponent : ConfigurationComponentBase
+public class ConfigurationComponent : BaseConfigurationComponent
 {
     [FileConfigurationItem("IntProperty")]
     public int IntProperty

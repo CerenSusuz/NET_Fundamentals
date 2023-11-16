@@ -17,9 +17,9 @@ public static class ConfigurationProviderManager
 
         var providerType = provider.GetType();
 
-        if (!Providers.TryGetValue(providerType, out IConfigurationProvider existingProvider))
+        if (!Providers.TryGetValue(key: providerType, value: out IConfigurationProvider existingProvider))
         {
-            Providers.Add(providerType, provider);
+            Providers.Add(key: providerType, value: provider);
 
             return provider;
         }

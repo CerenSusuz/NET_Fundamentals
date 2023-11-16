@@ -5,9 +5,9 @@ using CustomConfigurationDemo.Providers;
 
 namespace CustomConfigurationDemo;
 
-public abstract class ConfigurationComponentBase
+public abstract class BaseConfigurationComponent
 {
-    protected TValue? GetPropertyValue<TValue>([CallerMemberName] string? propertyName = null)
+    protected TValue? GetPropertyValue<TValue>([CallerMemberName] string propertyName = null)
     {
         var attribute = GetAttribute( propertyName);
 
@@ -36,42 +36,42 @@ public abstract class ConfigurationComponentBase
     {
         var propertyInfo = GetType().GetProperty(propertyName);
 
-        return propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false)
+        return propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), inherit: false)
             .FirstOrDefault() as BaseConfigurationItemAttribute;
     }
 
     private IConfigurationProvider GetProviderByAttribute(BaseConfigurationItemAttribute attribute)
     {
-        return ConfigurationProviderManager.GetProvider(attribute.ProviderType);
+        return ConfigurationProviderManager.GetProvider(provider: attribute.ProviderType);
     }
 
     public void LoadSettings()
     {
         var propertyInfos = GetType().GetProperties()
-            .Where(property => property.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false).Any());
+            .Where(property => property.GetCustomAttributes(attributeType: typeof(BaseConfigurationItemAttribute), inherit: false).Any());
 
         foreach (var propertyInfo in propertyInfos)
         {
-            var attribute = propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false)
+            var attribute = propertyInfo.GetCustomAttributes(attributeType: typeof(BaseConfigurationItemAttribute), inherit: false)
                 .FirstOrDefault() as BaseConfigurationItemAttribute;
-            var provider = ConfigurationProviderManager.GetProvider(attribute.ProviderType);
+            var provider = ConfigurationProviderManager.GetProvider(provider: attribute.ProviderType);
 
-            propertyInfo.SetValue(this, provider.GetValue(attribute.SettingName, propertyInfo.PropertyType));
+            propertyInfo.SetValue(obj: this, value: provider.GetValue(key: attribute.SettingName, valueType: propertyInfo.PropertyType));
         }
     }
 
     public void SaveSettings()
     {
         var propertyInfos = GetType().GetProperties()   
-            .Where(property => property.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false).Any());
+            .Where(property => property.GetCustomAttributes(attributeType: typeof(BaseConfigurationItemAttribute), inherit: false).Any());
 
         foreach (var propertyInfo in propertyInfos)
         {
-            var attribute = propertyInfo.GetCustomAttributes(typeof(BaseConfigurationItemAttribute), false)
+            var attribute = propertyInfo.GetCustomAttributes(attributeType: typeof(BaseConfigurationItemAttribute), inherit: false)
                 .FirstOrDefault() as BaseConfigurationItemAttribute;
-            var provider = ConfigurationProviderManager.GetProvider(attribute.ProviderType);
+            var provider = ConfigurationProviderManager.GetProvider(provider: attribute.ProviderType);
 
-            provider.SetValue(attribute.SettingName, propertyInfo.GetValue(this));
+            provider.SetValue(key: attribute.SettingName, value: propertyInfo.GetValue(obj: this));
         }
     }
 }
