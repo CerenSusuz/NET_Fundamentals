@@ -5,5 +5,5 @@ namespace CustomConfigurationDemo.Attributes;
 public class FileConfigurationItemAttribute : BaseConfigurationItemAttribute
 {
     public FileConfigurationItemAttribute(string settingName)
-        : base(settingName, typeof(FileConfigurationProvider)) { }
+        : base(settingName, new FileConfigurationProvider()) { }
 }

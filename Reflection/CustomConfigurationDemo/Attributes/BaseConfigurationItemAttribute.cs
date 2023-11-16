@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomConfigurationDemo.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,9 @@ public abstract class BaseConfigurationItemAttribute : Attribute
 {
     public string SettingName { get; set; }
 
-    public Type ProviderType { get; set; }
+    public IConfigurationProvider ProviderType { get; set; }
 
-    protected BaseConfigurationItemAttribute(string settingName, Type providerType)
+    protected BaseConfigurationItemAttribute(string settingName, IConfigurationProvider providerType)
     {
         SettingName = settingName;
         ProviderType = providerType;

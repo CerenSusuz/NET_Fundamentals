@@ -5,5 +5,5 @@ namespace CustomConfigurationDemo.Attributes;
 public class ConfigurationManagerConfigurationItemAttribute : BaseConfigurationItemAttribute
 {
     public ConfigurationManagerConfigurationItemAttribute(string settingName)
-        : base(settingName, typeof(ConfigurationManagerConfigurationProvider)) { }
+        : base(settingName, new ConfigurationManagerConfigurationProvider()) { }
 }
