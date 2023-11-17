@@ -1,4 +1,4 @@
-﻿using CustomConfigurationDemo.Providers;
+﻿using ConfigurationManagerConfigurationProviderProject;
 
 namespace CustomConfigurationDemo.Attributes;
 

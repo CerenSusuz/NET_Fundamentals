@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using CommonProvidersProject;
 using CustomConfigurationDemo.Attributes;
-using CustomConfigurationDemo.Providers;
 
 namespace CustomConfigurationDemo;
 
 public abstract class BaseConfigurationComponent
 {
-    protected TValue? GetPropertyValue<TValue>([CallerMemberName] string propertyName = null)
+    protected TValue GetPropertyValue<TValue>([CallerMemberName] string propertyName = null)
     {
         var attribute = GetAttribute( propertyName);
 
@@ -32,7 +31,7 @@ public abstract class BaseConfigurationComponent
         }
     }
 
-    private BaseConfigurationItemAttribute? GetAttribute(string propertyName)
+    private BaseConfigurationItemAttribute GetAttribute(string propertyName)
     {
         var propertyInfo = GetType().GetProperty(propertyName);
 
@@ -40,9 +39,20 @@ public abstract class BaseConfigurationComponent
             .FirstOrDefault() as BaseConfigurationItemAttribute;
     }
 
-    private IConfigurationProvider GetProviderByAttribute(BaseConfigurationItemAttribute attribute)
+    private static IConfigurationProvider GetProviderByAttribute(BaseConfigurationItemAttribute attribute)
     {
-        return ConfigurationProviderManager.GetProvider(provider: attribute.ProviderType);
+        var providerType = attribute.ProviderType.GetType();
+
+        var providerInstance = Activator.CreateInstance(providerType) as IConfigurationProvider;
+
+        if (providerInstance != null)
+        {
+            return providerInstance;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Unable to create an instance of {providerType}.");
+        }
     }
 
     public void LoadSettings()

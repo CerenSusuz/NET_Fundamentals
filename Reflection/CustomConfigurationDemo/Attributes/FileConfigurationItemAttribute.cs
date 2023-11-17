@@ -1,4 +1,4 @@
-﻿using CustomConfigurationDemo.Providers;
+﻿using FileConfigurationProviderProject;
 
 namespace CustomConfigurationDemo.Attributes;
 

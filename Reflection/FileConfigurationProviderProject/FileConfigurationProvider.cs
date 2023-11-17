@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonProvidersProject;
 
-namespace CustomConfigurationDemo.Providers;
+namespace FileConfigurationProviderProject;
 
 public class FileConfigurationProvider : IConfigurationProvider
 {

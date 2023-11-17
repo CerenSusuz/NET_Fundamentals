@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using CommonProvidersProject;
+using Newtonsoft.Json;
 using Serializer = Newtonsoft.Json.JsonSerializer;
 
-namespace CustomConfigurationDemo.Providers;
+namespace ConfigurationManagerConfigurationProviderProject;
 
 public class ConfigurationManagerConfigurationProvider : IConfigurationProvider
 {

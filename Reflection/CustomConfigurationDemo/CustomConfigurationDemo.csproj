@@ -11,4 +11,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConfigurationManagerConfigurationProviderProject\ConfigurationManagerConfigurationProviderProject.csproj" />
+    <ProjectReference Include="..\FileConfigurationProviderProject\FileConfigurationProviderProject.csproj" />
+  </ItemGroup>
+
 </Project>

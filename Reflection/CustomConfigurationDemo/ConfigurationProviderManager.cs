@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CustomConfigurationDemo.Providers;
+﻿using CommonProvidersProject;
 
 namespace CustomConfigurationDemo;
 
