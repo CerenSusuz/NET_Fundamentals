@@ -1,7 +1,6 @@
-﻿namespace FileSystemVisitorPL
+﻿namespace FileSystemVisitorPL;
+
+public interface IFileSystemVisitor
 {
-    public interface IFileSystemVisitor
-    {
-        IEnumerable<string> GetFilesAndFolders();
-    }
+    IEnumerable<string> GetFilesAndFolders();
 }
