@@ -193,8 +193,6 @@ namespace Tasks
 
             object IEnumerator.Current => Current;
 
-            public void Dispose() { }
-
             public bool MoveNext()
             {
                 if (current == null)
