@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatasTests", "Unit Testing\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeFactorKata", "Unit Testing\PrimeFactorKata\PrimeFactorKata\PrimeFactorKata.csproj", "{6086CA8C-AD2E-407A-8303-F2C889BF20CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OddEvenKata", "Unit Testing\OddEvenKata\OddEvenKata.csproj", "{7443B043-C11D-4A88-BDB6-9550B694F927}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{6086CA8C-AD2E-407A-8303-F2C889BF20CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6086CA8C-AD2E-407A-8303-F2C889BF20CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6086CA8C-AD2E-407A-8303-F2C889BF20CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7443B043-C11D-4A88-BDB6-9550B694F927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7443B043-C11D-4A88-BDB6-9550B694F927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7443B043-C11D-4A88-BDB6-9550B694F927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7443B043-C11D-4A88-BDB6-9550B694F927}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{38EC029C-F2F9-40A2-B52B-FC09844034D4} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
 		{44928DD3-CE68-43B4-BD10-9D39AB188EFA} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
 		{6086CA8C-AD2E-407A-8303-F2C889BF20CC} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
+		{7443B043-C11D-4A88-BDB6-9550B694F927} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
