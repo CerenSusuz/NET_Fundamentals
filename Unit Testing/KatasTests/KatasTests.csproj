@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FizzBuzzKata\FizzBuzzKata.csproj" />
+    <ProjectReference Include="..\PrimeFactorKata\PrimeFactorKata\PrimeFactorKata.csproj" />
   </ItemGroup>
 
 </Project>
