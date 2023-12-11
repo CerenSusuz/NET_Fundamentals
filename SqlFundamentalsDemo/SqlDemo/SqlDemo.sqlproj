@@ -63,6 +63,8 @@
     <Build Include="Employee.sql" />
     <Build Include="Company.sql" />
     <Build Include="EmployeeInfo.sql" />
+    <Build Include="sp_InsertEmployeeInfo.sql" />
+    <Build Include="trg_InsertEmployee.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.postdeploy.sql" />
