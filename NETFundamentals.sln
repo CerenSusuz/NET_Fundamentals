@@ -26,11 +26,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reflection", "Reflection", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomConfigurationDemo", "Reflection\CustomConfigurationDemo\CustomConfigurationDemo.csproj", "{85F239AD-F447-4BA6-994D-9556987D594F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileConfigurationProviderProject", "Reflection\FileConfigurationProviderProject\FileConfigurationProviderProject.csproj", "{88E9E054-7A98-4B2E-ADB3-33BF265EB25E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileConfigurationProviderProject", "Reflection\FileConfigurationProviderProject\FileConfigurationProviderProject.csproj", "{88E9E054-7A98-4B2E-ADB3-33BF265EB25E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManagerConfigurationProviderProject", "Reflection\ConfigurationManagerConfigurationProviderProject\ConfigurationManagerConfigurationProviderProject.csproj", "{C287A7B0-B3BA-4F57-9390-3A61E3FAD26C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigurationManagerConfigurationProviderProject", "Reflection\ConfigurationManagerConfigurationProviderProject\ConfigurationManagerConfigurationProviderProject.csproj", "{C287A7B0-B3BA-4F57-9390-3A61E3FAD26C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonProvidersProject", "Reflection\CommonProvidersProject\CommonProvidersProject.csproj", "{E04077FE-AA67-4992-8AC0-B965B2196C22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonProvidersProject", "Reflection\CommonProvidersProject\CommonProvidersProject.csproj", "{E04077FE-AA67-4992-8AC0-B965B2196C22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlFundamentalsDemo", "SqlFundamentalsDemo", "{0CC3A8FF-FF16-4F5C-8E80-8AC7EF14B3E3}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SqlDemo", "SqlFundamentalsDemo\SqlDemo\SqlDemo.sqlproj", "{0FACE639-B2F6-4B5B-8E85-145BD538BB91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +86,12 @@ Global
 		{E04077FE-AA67-4992-8AC0-B965B2196C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E04077FE-AA67-4992-8AC0-B965B2196C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E04077FE-AA67-4992-8AC0-B965B2196C22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +108,7 @@ Global
 		{88E9E054-7A98-4B2E-ADB3-33BF265EB25E} = {C197E5EB-64E7-4B9D-BC19-7793DBA3CC96}
 		{C287A7B0-B3BA-4F57-9390-3A61E3FAD26C} = {C197E5EB-64E7-4B9D-BC19-7793DBA3CC96}
 		{E04077FE-AA67-4992-8AC0-B965B2196C22} = {C197E5EB-64E7-4B9D-BC19-7793DBA3CC96}
+		{0FACE639-B2F6-4B5B-8E85-145BD538BB91} = {0CC3A8FF-FF16-4F5C-8E80-8AC7EF14B3E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
