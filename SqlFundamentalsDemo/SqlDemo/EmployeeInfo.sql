@@ -1,11 +1,11 @@
 ﻿CREATE VIEW [dbo].[EmployeeInfo]
 AS 
 SELECT 
-    E.Id AS EmployeeId,
-    ISNULL(E.EmployeeName, (P.FirstName + ' ' + P.LastName)) AS EmployeeFullName, 
-    (A.ZipCode + '_' + A.State + ', ' + A.City + '-' + A.Street) AS EmployeeFullAddress,
-    (E.CompanyName + '(' + E.Position + ')') AS EmployeeCompanyInfo
+    e.Id AS EmployeeId,
+    ISNULL(e.EmployeeName, (p.FirstName + ' ' + p.LastName)) AS EmployeeFullName, 
+    (a.ZipCode + '_' + a.State + ', ' + a.City + '-' + a.Street) AS EmployeeFullAddress,
+    (e.CompanyName + '(' + e.Position + ')') AS EmployeeCompanyInfo
 FROM 
-    [dbo].[Employee] E
-    INNER JOIN [dbo].[Person] P ON E.PersonId = P.Id
-    INNER JOIN [dbo].[Address] A ON E.AddressId = A.Id
+    [dbo].[Employee] e
+    INNER JOIN [dbo].[Person] p ON e.PersonId = p.Id
+    INNER JOIN [dbo].[Address] a ON e.AddressId = a.Id
