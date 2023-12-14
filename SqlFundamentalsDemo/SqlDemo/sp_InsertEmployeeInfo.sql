@@ -11,14 +11,14 @@
 AS
 BEGIN
     SET NOCOUNT ON;
+
+    DECLARE @MaxCompanyNameLength INT = 20;
     
-    IF ((@EmployeeName IS NULL OR LTRIM(RTRIM(@EmployeeName)) = '') AND 
-        (@FirstName IS NULL OR LTRIM(RTRIM(@FirstName)) = '') AND 
-        (@LastName IS NULL OR LTRIM(RTRIM(@LastName)) = ''))
+    IF ((@EmployeeName IS NULL OR LTRIM(RTRIM(@EmployeeName)) = '') AND (@FirstName IS NULL OR LTRIM(RTRIM(@FirstName)) = '') AND (@LastName IS NULL OR LTRIM(RTRIM(@LastName)) = ''))
         THROW 51000, 'At least one of the fields (EmployeeName or FirstName or LastName) must be provided.', 1;
-         
-    IF (LEN(@CompanyName) > 20)
-        SET @CompanyName = LEFT(@CompanyName, 20);
+            
+    IF (LEN(@CompanyName) > @MaxCompanyNameLength)
+        SET @CompanyName = LEFT(@CompanyName, @MaxCompanyNameLength);
         
     DECLARE @AddressId int;
     INSERT INTO dbo.Address(Street, City, State, ZipCode)
