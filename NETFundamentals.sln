@@ -35,15 +35,25 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlFundamentalsDemo", "SqlFundamentalsDemo", "{0CC3A8FF-FF16-4F5C-8E80-8AC7EF14B3E3}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SqlDemo", "SqlFundamentalsDemo\SqlDemo\SqlDemo.sqlproj", "{0FACE639-B2F6-4B5B-8E85-145BD538BB91}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Testing", "Unit Testing", "{B3C28D88-D08C-47E8-9B63-01555C4E8F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzzKata", "Unit Testing\FizzBuzzKata\FizzBuzzKata.csproj", "{38EC029C-F2F9-40A2-B52B-FC09844034D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FizzBuzzKata", "Unit Testing\FizzBuzzKata\FizzBuzzKata.csproj", "{38EC029C-F2F9-40A2-B52B-FC09844034D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KatasTests", "Unit Testing\KatasTests\KatasTests.csproj", "{44928DD3-CE68-43B4-BD10-9D39AB188EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KatasTests", "Unit Testing\KatasTests\KatasTests.csproj", "{44928DD3-CE68-43B4-BD10-9D39AB188EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeFactorKata", "Unit Testing\PrimeFactorKata\PrimeFactorKata\PrimeFactorKata.csproj", "{6086CA8C-AD2E-407A-8303-F2C889BF20CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeFactorKata", "Unit Testing\PrimeFactorKata\PrimeFactorKata\PrimeFactorKata.csproj", "{6086CA8C-AD2E-407A-8303-F2C889BF20CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OddEvenKata", "Unit Testing\OddEvenKata\OddEvenKata.csproj", "{7443B043-C11D-4A88-BDB6-9550B694F927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OddEvenKata", "Unit Testing\OddEvenKata\OddEvenKata.csproj", "{7443B043-C11D-4A88-BDB6-9550B694F927}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{7FE122EB-1E61-4E39-AF10-C054E4631F3E}"
+	ProjectSection(SolutionItems) = preProject
+		Logging\LogParser.msi = Logging\LogParser.msi
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainstormSessions", "Logging\Logging\BrainstormSessions\BrainstormSessions.csproj", "{B904D416-BA71-4F38-B332-4C48F17EEB52}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainstormSessions.Test", "Logging\Logging\BrainstormSessions.Test\BrainstormSessions.Test.csproj", "{CBC6826B-2972-40C5-A21D-62A45C658754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +127,14 @@ Global
 		{7443B043-C11D-4A88-BDB6-9550B694F927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7443B043-C11D-4A88-BDB6-9550B694F927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7443B043-C11D-4A88-BDB6-9550B694F927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B904D416-BA71-4F38-B332-4C48F17EEB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B904D416-BA71-4F38-B332-4C48F17EEB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B904D416-BA71-4F38-B332-4C48F17EEB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B904D416-BA71-4F38-B332-4C48F17EEB52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC6826B-2972-40C5-A21D-62A45C658754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC6826B-2972-40C5-A21D-62A45C658754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC6826B-2972-40C5-A21D-62A45C658754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC6826B-2972-40C5-A21D-62A45C658754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +156,8 @@ Global
 		{44928DD3-CE68-43B4-BD10-9D39AB188EFA} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
 		{6086CA8C-AD2E-407A-8303-F2C889BF20CC} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
 		{7443B043-C11D-4A88-BDB6-9550B694F927} = {B3C28D88-D08C-47E8-9B63-01555C4E8F55}
+		{B904D416-BA71-4F38-B332-4C48F17EEB52} = {7FE122EB-1E61-4E39-AF10-C054E4631F3E}
+		{CBC6826B-2972-40C5-A21D-62A45C658754} = {7FE122EB-1E61-4E39-AF10-C054E4631F3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E67B29C8-325A-4DBD-A85A-56B7332CE3EB}
