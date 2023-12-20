@@ -1,6 +1,4 @@
-﻿using CommonProvidersProject;
-
-namespace CustomConfigurationDemo;
+﻿namespace CustomConfigurationDemo;
 
 public static class ConfigurationProviderManager
 {

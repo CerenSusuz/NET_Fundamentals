@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using CommonProvidersProject;
-using CustomConfigurationDemo.Attributes;
+﻿using CustomConfigurationDemo.Attributes;
 
 namespace CustomConfigurationDemo;
 

@@ -1,6 +1,4 @@
-﻿using StandardLibraryConcat;
-
-string username = Console.ReadLine();
+﻿string username = Console.ReadLine();
 Console.WriteLine($"Hello, {username}");
 Console.WriteLine("---------------------");
 ConcatLogic concatenationLogic = new();

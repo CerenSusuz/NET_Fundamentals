@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace BrainstormSessions
 {
@@ -25,29 +23,17 @@ namespace BrainstormSessions
 
             services.AddScoped<IBrainstormSessionRepository,
                 EFStormSessionRepository>();
-
-            services.AddLogging(loggingBuilder =>
-                loggingBuilder.AddSerilog(dispose: true));
         }
 
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
-            IServiceProvider serviceProvider,
-            ILogger<Startup> logger)
+            IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 var repository = serviceProvider.GetRequiredService<IBrainstormSessionRepository>();
 
-                try
-                {
-                    InitializeDatabaseAsync(repository).Wait();
-                }
-                catch (Exception e)
-                {
-                    logger.LogCritical(e, "Could not initialize database");
-                    throw;
-                }
+                InitializeDatabaseAsync(repository).Wait();
             }
 
             app.UseStaticFiles();

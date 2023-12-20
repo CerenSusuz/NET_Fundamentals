@@ -1,6 +1,4 @@
-﻿using FileConfigurationProviderProject;
-
-namespace CustomConfigurationDemo.Attributes;
+﻿namespace CustomConfigurationDemo.Attributes;
 
 public class FileConfigurationItemAttribute : BaseConfigurationItemAttribute
 {

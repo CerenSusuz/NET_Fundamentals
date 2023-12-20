@@ -27,13 +27,13 @@ namespace BrainstormSessions.Api
         [HttpGet("forsession/{sessionId}")]
         public async Task<IActionResult> ForSession(int sessionId)
         {
-            _logger.LogDebug($"Accessing session with id = {sessionId}");
+            _logger.LogInformation($"IDEAS - Accessing session with id = {sessionId}");
 
             var session = await _sessionRepository.GetByIdAsync(sessionId);
 
             if (session == null)
             {
-                _logger.LogError($"Session with id = {sessionId} not found.");
+                _logger.LogError($"IDEAS - Session with id = {sessionId} not found.");
 
                 return NotFound(sessionId);
             }
@@ -46,7 +46,7 @@ namespace BrainstormSessions.Api
                 DateCreated = idea.DateCreated
             }).ToList();
 
-            _logger.LogInformation($"Successfully accessed session with id = {sessionId}");
+            _logger.LogInformation($"IDEAS - Successfully accessed session with id = {sessionId}");
 
             return Ok(result);
         }
@@ -54,11 +54,11 @@ namespace BrainstormSessions.Api
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody]NewIdeaModel model)
         {
-            _logger.LogDebug("IdeasController.Create was called, Creating new session ");
+            _logger.LogInformation("IDEAS - IdeasController.Create was called, Creating new session ");
 
             if (!ModelState.IsValid)
             {
-                _logger.LogError("ModelState is invalid in IdeasController.Create");
+                _logger.LogError("IDEAS - ModelState is invalid in IdeasController.Create");
 
                 return BadRequest(ModelState);
             }
@@ -66,7 +66,7 @@ namespace BrainstormSessions.Api
             var session = await _sessionRepository.GetByIdAsync(model.SessionId);
             if (session == null)
             {
-                _logger.LogError($"Session with id {model.SessionId} not found in IdeasController.Create");
+                _logger.LogError($"IDEAS - Session with id {model.SessionId} not found in IdeasController.Create");
 
                 return NotFound(model.SessionId);
             }
@@ -79,7 +79,7 @@ namespace BrainstormSessions.Api
             };
             session.AddIdea(idea);
 
-            _logger.LogInformation("Idea was added in IdeasController.Create");
+            _logger.LogInformation("IDEAS - Idea was added in IdeasController.Create");
 
             await _sessionRepository.UpdateAsync(session);
 
@@ -93,13 +93,13 @@ namespace BrainstormSessions.Api
         [ProducesResponseType(404)]
         public async Task<ActionResult<List<IdeaDTO>>> ForSessionActionResult(int sessionId)
         {
-            _logger.LogDebug($"Accessing session with id = {sessionId} in ForSessionActionResult");
+            _logger.LogInformation($"IDEAS - Accessing session with id = {sessionId} in ForSessionActionResult");
 
             var session = await _sessionRepository.GetByIdAsync(sessionId);
 
             if (session == null)
             {
-                _logger.LogError($"Session with id = {sessionId} not found in ForSessionActionResult.");
+                _logger.LogError($"IDEAS - Session with id = {sessionId} not found in ForSessionActionResult.");
 
                 return NotFound(sessionId);
             }
@@ -112,7 +112,7 @@ namespace BrainstormSessions.Api
                 DateCreated = idea.DateCreated
             }).ToList();
 
-            _logger.LogInformation($"Successfully accessed session with id = {sessionId} in ForSessionActionResult");
+            _logger.LogInformation($"IDEAS - Successfully accessed session with id = {sessionId} in ForSessionActionResult");
 
             return result;
         }
@@ -125,11 +125,11 @@ namespace BrainstormSessions.Api
         [ProducesResponseType(404)]
         public async Task<ActionResult<BrainstormSession>> CreateActionResult([FromBody]NewIdeaModel model)
         {
-            _logger.LogDebug("Creating new session in CreateActionResult");
+            _logger.LogInformation("IDEAS - Creating new session in CreateActionResult");
 
             if (!ModelState.IsValid)
             {
-                _logger.LogError("Invalid model state in CreateActionResult");
+                _logger.LogError("IDEAS - Invalid model state in CreateActionResult");
 
                 return BadRequest(ModelState);
             }
@@ -138,7 +138,7 @@ namespace BrainstormSessions.Api
 
             if (session == null)
             {
-                _logger.LogError($"Session with id = {model.SessionId} not found in CreateActionResult.");
+                _logger.LogError($"IDEAS - Session with id = {model.SessionId} not found in CreateActionResult.");
 
                 return NotFound(model.SessionId);
             }
@@ -153,7 +153,7 @@ namespace BrainstormSessions.Api
 
             await _sessionRepository.UpdateAsync(session);
 
-            _logger.LogInformation("Successfully created session in CreateActionResult");
+            _logger.LogInformation("IDEAS - Successfully created session in CreateActionResult");
 
             return CreatedAtAction(nameof(CreateActionResult), new { id = session.Id }, session);
         }

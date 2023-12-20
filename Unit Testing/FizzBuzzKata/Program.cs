@@ -1,5 +1,4 @@
 ﻿using FizzBuzzKata;
-using System;
 
 namespace FizzBuzz
 {

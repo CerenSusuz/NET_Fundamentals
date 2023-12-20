@@ -9,11 +9,11 @@ namespace BrainstormSessions.Controllers
     public class SessionController : Controller
     {
         private readonly IBrainstormSessionRepository _sessionRepository;
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<SessionController> _logger;
 
         public SessionController(
             IBrainstormSessionRepository sessionRepository,
-            ILogger<HomeController> logger)
+            ILogger<SessionController> logger)
         {
             _sessionRepository = sessionRepository;
             _logger = logger;
@@ -23,21 +23,22 @@ namespace BrainstormSessions.Controllers
         {
             if (!id.HasValue)
             {
-                _logger.LogError("Session Id is not provided in SessionController");
+                _logger.LogError("SESSION - Session Id is not provided in SessionController");
 
                 return RedirectToAction(actionName: nameof(Index),
                     controllerName: "Home");
             }
 
             var session = await _sessionRepository.GetByIdAsync(id.Value);
+
             if (session == null)
             {
-                _logger.LogError("Session with provided Id not found in SessionController");
+                _logger.LogError("SESSION - Session with provided Id not found in SessionController");
 
                 return Content("Session not found.");
             }
 
-            _logger.LogInformation("Session with provided Id found in SessionController");
+            _logger.LogInformation("SESSION - Session with provided Id found in SessionController");
 
             var viewModel = new StormSessionViewModel()
             {
@@ -45,6 +46,7 @@ namespace BrainstormSessions.Controllers
                 Name = session.Name,
                 Id = session.Id
             };
+            _logger.LogInformation($"{viewModel} created");
 
             return View(viewModel);
         }

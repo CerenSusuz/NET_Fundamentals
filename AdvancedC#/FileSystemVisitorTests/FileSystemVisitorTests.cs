@@ -1,7 +1,4 @@
-﻿using Xunit;
-using FileSystemVisitorPL;
-
-namespace FileSystemVisitorTests;
+﻿namespace FileSystemVisitorTests;
 
 public class FileSystemVisitorTests
 {

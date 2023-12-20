@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 using Serilog.Formatting.Compact;
+using Serilog.Sinks.Email;
 using System;
+using System.Net;
 
 namespace BrainstormSessions
 {
@@ -12,13 +13,27 @@ namespace BrainstormSessions
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(formatter: new CompactJsonFormatter(), path: "./Logs/brainstormSessions.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-
+                .WriteTo.File(
+                    formatter: new CompactJsonFormatter(),
+                    path: "./Logs/brainstormSessions.txt",
+                    rollingInterval: RollingInterval.Day,
+                    shared: true)
+                .WriteTo.Email(new EmailConnectionInfo
+                {
+                    FromEmail = "sampleemail@gmail.com",
+                    ToEmail = "anotheremail@gmail.com",
+                    MailServer = "yoursmtpserver",
+                    NetworkCredentials = new NetworkCredential("yourusername", "yourpassword"),
+                    EnableSsl = true,
+                    Port = 465,
+                    EmailSubject = "Log Infos"
+                },
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}",
+                batchPostingLimit: 10
+                ).CreateLogger();
+            
             try
             {
                 Log.Information("Starting up");
@@ -36,14 +51,11 @@ namespace BrainstormSessions
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .UseSerilog((hostingContext, services, loggerConfiguration) => loggerConfiguration
-                    .ReadFrom.Configuration(hostingContext.Configuration)
-                    .Enrich.FromLogContext()
-                    .WriteTo.Console())
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    Host.CreateDefaultBuilder(args)
+                        .UseSerilog()
+                        .ConfigureWebHostDefaults(webBuilder =>
+                        {
+                            webBuilder.UseStartup<Startup>();
+                        });
     }
 }
