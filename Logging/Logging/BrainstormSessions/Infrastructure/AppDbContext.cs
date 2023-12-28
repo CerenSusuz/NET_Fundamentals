@@ -1,15 +1,14 @@
 ﻿using BrainstormSessions.Core.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BrainstormSessions.Infrastructure
-{
-    public class AppDbContext : DbContext
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) :
-            base(dbContextOptions)
-        {
-        }
+namespace BrainstormSessions.Infrastructure;
 
-        public DbSet<BrainstormSession> BrainstormSessions { get; set; }
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) :
+        base(dbContextOptions)
+    {
     }
+
+    public DbSet<BrainstormSession> BrainstormSessions { get; set; }
 }

@@ -8,63 +8,62 @@ using BrainstormSessions.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace BrainstormSessions.Controllers
+namespace BrainstormSessions.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly IBrainstormSessionRepository _sessionRepository;
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(
+        IBrainstormSessionRepository sessionRepository,
+        ILogger<HomeController> logger)
     {
-        private readonly IBrainstormSessionRepository _sessionRepository;
-        private readonly ILogger<HomeController> _logger;
+        _sessionRepository = sessionRepository;
+        _logger = logger;
+    }
 
-        public HomeController(
-            IBrainstormSessionRepository sessionRepository,
-            ILogger<HomeController> logger)
+    public async Task<IActionResult> Index()
+    {
+        var sessionList = await _sessionRepository.ListAsync();
+        _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: Listing all Brainstorm Sessions");
+
+        var model = sessionList.Select(session => new StormSessionViewModel()
         {
-            _sessionRepository = sessionRepository;
-            _logger = logger;
+            Id = session.Id,
+            DateCreated = session.DateCreated,
+            Name = session.Name,
+            IdeaCount = session.Ideas.Count
+        });
+
+        return View(model);
+    }
+
+    public class NewSessionModel
+    {
+        [Required]
+        public string SessionName { get; set; }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Index(NewSessionModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            _logger.LogError($"{nameof(HomeController)}.{nameof(Index)}: Failed to add a new Session");
+
+            return BadRequest(ModelState);
         }
-
-        public async Task<IActionResult> Index()
+        else
         {
-            var sessionList = await _sessionRepository.ListAsync();
-            _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: Listing all Brainstorm Sessions");
-
-            var model = sessionList.Select(session => new StormSessionViewModel()
+            await _sessionRepository.AddAsync(new BrainstormSession()
             {
-                Id = session.Id,
-                DateCreated = session.DateCreated,
-                Name = session.Name,
-                IdeaCount = session.Ideas.Count
+                DateCreated = DateTimeOffset.Now,
+                Name = model.SessionName
             });
-
-            return View(model);
+            _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: A new Session was created");
         }
 
-        public class NewSessionModel
-        {
-            [Required]
-            public string SessionName { get; set; }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(NewSessionModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError($"{nameof(HomeController)}.{nameof(Index)}: Failed to add a new Session");
-
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                await _sessionRepository.AddAsync(new BrainstormSession()
-                {
-                    DateCreated = DateTimeOffset.Now,
-                    Name = model.SessionName
-                });
-                _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: A new Session was created");
-            }
-
-            return RedirectToAction(actionName: nameof(Index));
-        }
+        return RedirectToAction(actionName: nameof(Index));
     }
 }
