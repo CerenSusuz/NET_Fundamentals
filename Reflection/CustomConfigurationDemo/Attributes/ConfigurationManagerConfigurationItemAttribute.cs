@@ -1,6 +1,4 @@
-﻿using ConfigurationManagerConfigurationProviderProject;
-
-namespace CustomConfigurationDemo.Attributes;
+﻿namespace CustomConfigurationDemo.Attributes;
 
 public class ConfigurationManagerConfigurationItemAttribute : BaseConfigurationItemAttribute
 {

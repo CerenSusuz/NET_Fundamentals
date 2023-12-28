@@ -1,5 +1,4 @@
 ﻿using PrimeFactorKata;
-using Xunit;
 
 namespace KatasTests
 {

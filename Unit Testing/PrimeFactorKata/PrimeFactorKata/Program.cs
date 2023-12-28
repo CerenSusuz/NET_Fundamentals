@@ -1,5 +1,4 @@
-﻿using System;
-using PrimeFactorKata;
+﻿using PrimeFactorKata;
 
 class Program
 {

@@ -1,6 +1,4 @@
-﻿using CommonProvidersProject;
-
-namespace CustomConfigurationDemo.Attributes;
+﻿namespace CustomConfigurationDemo.Attributes;
 
 [AttributeUsage(AttributeTargets.Property)]
 public abstract class BaseConfigurationItemAttribute : Attribute
