@@ -23,7 +23,7 @@ namespace BrainstormSessions.Controllers
         {
             if (!id.HasValue)
             {
-                _logger.LogError("SESSION - Session Id is not provided in SessionController");
+                _logger.LogError($"{nameof(SessionController)}.{nameof(Index)}: Session Id is not provided.");
 
                 return RedirectToAction(actionName: nameof(Index),
                     controllerName: "Home");
@@ -33,12 +33,12 @@ namespace BrainstormSessions.Controllers
 
             if (session == null)
             {
-                _logger.LogError("SESSION - Session with provided Id not found in SessionController");
+                _logger.LogError($"{nameof(SessionController)}.{nameof(Index)}: Session with provided Id not found.");
 
                 return Content("Session not found.");
             }
 
-            _logger.LogInformation("SESSION - Session with provided Id found in SessionController");
+            _logger.LogInformation($"{nameof(SessionController)}.{nameof(Index)}: Session with provided Id found.");
 
             var viewModel = new StormSessionViewModel()
             {
@@ -46,7 +46,8 @@ namespace BrainstormSessions.Controllers
                 Name = session.Name,
                 Id = session.Id
             };
-            _logger.LogInformation($"{viewModel} created");
+
+            _logger.LogInformation($"{nameof(SessionController)}.{nameof(Index)}: {viewModel} created.");
 
             return View(viewModel);
         }

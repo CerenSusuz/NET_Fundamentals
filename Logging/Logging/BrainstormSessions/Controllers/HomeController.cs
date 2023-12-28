@@ -26,7 +26,7 @@ namespace BrainstormSessions.Controllers
         public async Task<IActionResult> Index()
         {
             var sessionList = await _sessionRepository.ListAsync();
-            _logger.LogInformation("HOME - Listing all Brainstorm Sessions");
+            _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: Listing all Brainstorm Sessions");
 
             var model = sessionList.Select(session => new StormSessionViewModel()
             {
@@ -50,7 +50,7 @@ namespace BrainstormSessions.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError("HOME - Failed to add a new Session in HomeController");
+                _logger.LogError($"{nameof(HomeController)}.{nameof(Index)}: Failed to add a new Session");
 
                 return BadRequest(ModelState);
             }
@@ -61,7 +61,7 @@ namespace BrainstormSessions.Controllers
                     DateCreated = DateTimeOffset.Now,
                     Name = model.SessionName
                 });
-                _logger.LogInformation("HOME - A new Session was created");
+                _logger.LogInformation($"{nameof(HomeController)}.{nameof(Index)}: A new Session was created");
             }
 
             return RedirectToAction(actionName: nameof(Index));
