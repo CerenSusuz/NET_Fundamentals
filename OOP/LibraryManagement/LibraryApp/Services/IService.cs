@@ -9,4 +9,6 @@ public interface IService<T> where T : Document
     IList<T> GetAllDocuments();
 
     void Create(T document);
+
+    IList<T> GetDocumentsByType(DocumentType type);
 }

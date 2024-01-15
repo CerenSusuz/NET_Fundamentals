@@ -8,10 +8,14 @@ public class LocalizedBook(
     List<string> authors,
     DateTime datePublished,
     int numberOfPages,
+    string originalPublisher,
     string publisher,
     string localPublisher,
     string countryOfLocalization) : Book(title, authors, datePublished, numberOfPages, publisher)
 {
+    [JsonPropertyName("originalPublisher")]
+    public string OriginalPublisher { get; set; } = originalPublisher;
+
     [JsonPropertyName("localPublisher")]
     public string LocalPublisher { get; set; } = localPublisher;
 

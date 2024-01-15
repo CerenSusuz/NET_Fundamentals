@@ -2,6 +2,7 @@
 
 namespace LibraryApp.Documents;
 
+[method: JsonConstructor]
 public class Book(
     string title,
     List<string> authors,

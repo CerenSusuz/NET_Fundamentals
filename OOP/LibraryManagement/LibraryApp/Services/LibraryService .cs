@@ -21,4 +21,9 @@ public class LibraryService<T>(IRepository<T> repository) : IService<T> where T 
     {
         _repository.Create(document);
     }
+
+    public IList<T> GetDocumentsByType(DocumentType type)
+    {
+        return _repository.ReadAll().Where(doc => doc.Type == type).ToList();
+    }
 }

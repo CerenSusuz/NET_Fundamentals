@@ -84,6 +84,7 @@ public class JsonFileDocumentRepository<T> : IRepository<T> where T : Document
             DocumentType.LocalizedBook => jObject.ToObject<LocalizedBook>() as T,
             DocumentType.Book => jObject.ToObject<Book>() as T,
             DocumentType.Patent => jObject.ToObject<Patent>() as T,
+            DocumentType.Magazine => jObject.ToObject<Magazine>() as T,
             _ => throw new Exception("Unhandled document type detected.")
         };
     }
