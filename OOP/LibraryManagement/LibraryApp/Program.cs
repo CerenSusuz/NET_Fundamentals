@@ -1,6 +1,7 @@
 ﻿using LibraryApp.Documents;
 using LibraryApp.Repositories;
 using LibraryApp.Services;
+using System;
 
 namespace LibraryApp;
 
@@ -14,7 +15,7 @@ public static class Program
             {DocumentType.Book, TimeSpan.FromMinutes(30)},
             {DocumentType.Patent, TimeSpan.FromHours(2)},
             {DocumentType.LocalizedBook, TimeSpan.FromDays(1)},
-            {DocumentType.Magazine, Timeout.InfiniteTimeSpan}
+            {DocumentType.Magazine, TimeSpan.FromDays(365 * 100)}
         };
 
         var documentCache = new DocumentCache(cacheExpiryPerType);

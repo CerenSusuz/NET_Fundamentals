@@ -24,8 +24,15 @@ public class DocumentCache(Dictionary<DocumentType, TimeSpan> cacheExpiryPerType
     {
         if (_cacheExpiryPerType.TryGetValue(document.Type, out var expiry))
         {
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(expiry);
-            _cache.Set(document.Title, document, cacheEntryOptions);
+            if (DateTime.Now + expiry > DateTime.Now)
+            {
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(expiry);
+                _cache.Set(document.Title, document, cacheEntryOptions);
+            }
+            else
+            {
+                Console.WriteLine("The document was not added to the cache. Its expiration time is in the past.");
+            }
         }
     }
 
