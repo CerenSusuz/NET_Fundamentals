@@ -9,8 +9,8 @@ Layout = "_Layout";
 <div class="row">
     <div class="col-md-9">
         @foreach (var storm in Model)
-    {
-        <div class="panel panel-default">
+{
+    <div class="panel panel-default">
                 <div class="panel-heading">
                     <a href="@Url.Action("Index","Session", new {id=@storm.Id})">@storm.Name</a> - @storm.DateCreated.ToString()
                 </div>
@@ -18,7 +18,7 @@ Layout = "_Layout";
                     @storm.IdeaCount ideas
                 </div>
             </div>
-    }
+}
     </div>
     <div class="col-md-3">
         <div class="panel panel-primary">

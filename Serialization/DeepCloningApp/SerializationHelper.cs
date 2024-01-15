@@ -1,14 +1,13 @@
 ﻿using System.Text.Json;
 
-namespace DeepCloningApp
+namespace DeepCloningApp;
+
+public static class SerializationHelper
 {
-    public static class SerializationHelper
+    public static T DeepCopyWithJson<T>(T obj)
     {
-        public static T DeepCopyWithJson<T>(T obj)
-        {
-            var jsonString = JsonSerializer.Serialize(value: obj);
-            
-            return JsonSerializer.Deserialize<T>(json: jsonString);
-        }
+        var jsonString = JsonSerializer.Serialize(value: obj);
+        
+        return JsonSerializer.Deserialize<T>(json: jsonString);
     }
 }

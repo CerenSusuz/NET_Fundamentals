@@ -1,8 +1,7 @@
-﻿namespace DeepCloningApp
+﻿namespace DeepCloningApp;
+
+[Serializable]
+public class Employee
 {
-    [Serializable]
-    public class Employee
-    {
-        public string EmployeeName { get; set; }
-    }
+    public string EmployeeName { get; set; }
 }

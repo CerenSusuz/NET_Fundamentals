@@ -60,15 +60,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serializat
 		Serialization\Serialization.sln = Serialization\Serialization.sln
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySerialization", "Serialization\BinarySerialization\BinarySerialization.csproj", "{F883562C-3E59-4692-B940-2C71BB27F9F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinarySerialization", "Serialization\BinarySerialization\BinarySerialization.csproj", "{F883562C-3E59-4692-B940-2C71BB27F9F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLSerialization", "Serialization\XMLSerialization\XMLSerialization.csproj", "{BD4500DD-F751-4754-9660-8AE50B272CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLSerialization", "Serialization\XMLSerialization\XMLSerialization.csproj", "{BD4500DD-F751-4754-9660-8AE50B272CBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSerialization", "JsonSerialization\JsonSerialization.csproj", "{35CEA1C2-9967-4159-B651-92DC0A9DED69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomBinarySerializer", "Serialization\CustomBinarySerializer\CustomBinarySerializer.csproj", "{455EBC1C-EC75-4BBB-A6D3-581CD7FC54CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomBinarySerializer", "Serialization\CustomBinarySerializer\CustomBinarySerializer.csproj", "{455EBC1C-EC75-4BBB-A6D3-581CD7FC54CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepCloningApp", "Serialization\DeepCloningApp\DeepCloningApp.csproj", "{4A6E2B57-2FB9-4149-A267-A05CDCF040E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeepCloningApp", "Serialization\DeepCloningApp\DeepCloningApp.csproj", "{4A6E2B57-2FB9-4149-A267-A05CDCF040E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OOP", "OOP", "{6261D2D0-CDE6-494C-AFBD-266596020DB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
