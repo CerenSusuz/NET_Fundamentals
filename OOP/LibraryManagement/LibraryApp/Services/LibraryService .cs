@@ -19,6 +19,13 @@ public class LibraryService<T>(IRepository<T> repository) : IService<T> where T 
 
     public void Create(T document)
     {
+        if (_repository.Read(document.Title) != null)
+        {
+            Console.WriteLine($"The document ({document.Title}) already exists. Skipping creation.");
+
+            return;
+        }
+
         _repository.Create(document);
     }
 

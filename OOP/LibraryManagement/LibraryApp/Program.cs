@@ -9,7 +9,16 @@ public static class Program
 {
     public static void Main()
     {
-        var repository = new JsonFileDocumentRepository<Document>();
+        var cacheExpiryPerType = new Dictionary<DocumentType, TimeSpan>
+        {
+            {DocumentType.Book, TimeSpan.FromMinutes(30)},
+            {DocumentType.Patent, TimeSpan.FromHours(2)},
+            {DocumentType.LocalizedBook, TimeSpan.FromDays(1)},
+            {DocumentType.Magazine, Timeout.InfiniteTimeSpan}
+        };
+
+        var documentCache = new DocumentCache(cacheExpiryPerType);
+        var repository = new JsonFileDocumentRepository<Document>(documentCache);
         var service = new LibraryService<Document>(repository);
 
         foreach (var document in CreateInitialDocuments())

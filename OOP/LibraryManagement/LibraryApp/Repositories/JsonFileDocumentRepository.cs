@@ -2,29 +2,37 @@
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using System.Text.Json;
+using LibraryApp.Services;
 
 namespace LibraryApp.Repositories;
 
-public class JsonFileDocumentRepository<T> : IRepository<T> where T : Document
+public class JsonFileDocumentRepository<T>(DocumentCache cache) : IRepository<T> where T : Document
 {
     private const string DocType = "documentType";
+    private readonly DocumentCache _cache = cache;
     private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-    private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+    private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true, IncludeFields = true };
 
     public T Read(string title)
     {
-        var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
+        var document = _cache.GetDocument<T>(title);
 
-        if (file == null)
+        if (document == null)
         {
-            return null;
+            var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
+
+            if (file != null)
+            {
+                var json = File.ReadAllText(file.FullName);
+                var jObject = JObject.Parse(json);
+                var docType = jObject[DocType].ToObject<DocumentType>();
+
+                document = Deserialize(jObject, docType);
+                _cache.SetDocument(document);
+            }
         }
 
-        var json = File.ReadAllText(file.FullName);
-        var jObject = JObject.Parse(json);
-        var docType = jObject[DocType].ToObject<DocumentType>();
-
-        return JsonFileDocumentRepository<T>.Deserialize(jObject, docType);
+        return document;
     }
 
     public IList<T> ReadAll()
