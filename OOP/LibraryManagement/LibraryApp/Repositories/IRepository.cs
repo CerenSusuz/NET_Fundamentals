@@ -1,13 +1,12 @@
 ﻿using LibraryApp.Documents;
 
-namespace LibraryApp.Repositories
+namespace LibraryApp.Repositories;
+
+public interface IRepository<T> where T : Document
 {
-    public interface IRepository<T> where T : Document
-    {
-        T Read(string title);
+    T Read(string title);
 
-        IList<T> ReadAll();
+    IList<T> ReadAll();
 
-        public void Create(T document);
-    }
+    public void Create(T document);
 }

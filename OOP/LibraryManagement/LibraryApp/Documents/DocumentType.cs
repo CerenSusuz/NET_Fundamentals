@@ -1,9 +1,8 @@
-﻿namespace LibraryApp.Documents
+﻿namespace LibraryApp.Documents;
+
+public enum DocumentType
 {
-    public enum DocumentType
-    {
-        Book = 0,
-        Patent = 1,
-        LocalizedBook = 2
-    }
+    Book = 0,
+    Patent = 1,
+    LocalizedBook = 2
 }

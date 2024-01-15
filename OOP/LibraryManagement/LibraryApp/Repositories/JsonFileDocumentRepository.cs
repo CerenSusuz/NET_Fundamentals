@@ -1,95 +1,90 @@
 ﻿using LibraryApp.Documents;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 
-namespace LibraryApp.Repositories
+namespace LibraryApp.Repositories;
+
+public class JsonFileDocumentRepository<T> : IRepository<T> where T : Document
 {
-    public class JsonFileDocumentRepository<T> : IRepository<T> where T : Document
+    private const string DocType = "documentType";
+    private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+
+    public T Read(string title)
     {
-        private const string DocType = "documentType";
-        private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+        var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
 
-        public T Read(string title)
+        if (file == null)
         {
-            var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
+            return null;
+        }
 
-            if (file == null)
+        var json = File.ReadAllText(file.FullName);
+        var jObject = JObject.Parse(json);
+        var docType = jObject[DocType].ToObject<DocumentType>();
+
+        return JsonFileDocumentRepository<T>.Deserialize(jObject, docType);
+    }
+
+    public IList<T> ReadAll()
+    {
+        var directoryInfo = new DirectoryInfo(_baseDirectory);
+        var files = directoryInfo.GetFiles("type_*_*_*.json");
+        var documents = new List<T>();
+
+        foreach (var file in files)
+        {
+            var title = GetTitle(file.Name);
+            var document = Read(title);
+
+            if (document != null)
             {
-                return null;
+                documents.Add(document);
             }
-
-            var json = File.ReadAllText(file.FullName);
-            var jObject = JObject.Parse(json);
-            var docType = jObject[DocType].ToObject<DocumentType>();
-
-            return JsonFileDocumentRepository<T>.Deserialize(jObject, docType);
         }
 
-        public IList<T> ReadAll()
+        return documents;
+    }
+
+    public void Create(T document)
+    {
+        if (Read(document.Title) != null)
         {
-            var directoryInfo = new DirectoryInfo(_baseDirectory);
-            var files = directoryInfo.GetFiles("type_*_*_*.json");
-            var documents = new List<T>();
-
-            foreach (var file in files)
-            {
-                var title = GetTitle(file.Name);
-                var document = Read(title);
-
-                if (document != null)
-                {
-                    documents.Add(document);
-                }
-            }
-
-            return documents;
+            throw new Exception("A document with this title and type already exists.");
         }
 
-        public void Create(T document)
+        var jsonString = JsonSerializer.Serialize(document, _jsonOptions);
+        var directory = Path.Combine(_baseDirectory, GetFileName(document));
+
+        File.WriteAllText(directory, jsonString);
+    }
+
+    private static string GetTitle(string fileName)
+    {
+        var match = Regex.Match(fileName, @"^type_.*_(.*)_.*\.json$");
+
+        if (match.Success)
         {
-            if (Read(document.Title) != null)
-            {
-                throw new Exception("A document with this title and type already exists.");
-            }
-
-            var jsonString = JsonSerializer.Serialize(document, _jsonOptions);
-            var directory = Path.Combine(_baseDirectory, GetFileName(document));
-
-            File.WriteAllText(directory, jsonString);
+            return match.Groups[1].Value;
         }
 
-        private static string GetTitle(string fileName)
+        throw new Exception("Couldn't parse the file name.");
+    }
+
+    private static string GetFileName(T document)
+    {
+        return $"type_{document.Type}_{document.Title}_{document.Id}.json";
+    }
+
+    private static T Deserialize(JObject jObject, DocumentType docType)
+    {
+        return docType switch
         {
-            var match = Regex.Match(fileName, @"^type_.*_(.*)_.*\.json$");
-
-            if (match.Success)
-            {
-                return match.Groups[1].Value;
-            }
-
-            throw new Exception("Couldn't parse the file name.");
-        }
-
-        private static string GetFileName(T document)
-        {
-            return $"type_{document.Type}_{document.Title}_{document.Id}.json";
-        }
-
-        private static T Deserialize(JObject jObject, DocumentType docType)
-        {
-            return docType switch
-            {
-                DocumentType.LocalizedBook => jObject.ToObject<LocalizedBook>() as T,
-                DocumentType.Book => jObject.ToObject<Book>() as T,
-                DocumentType.Patent => jObject.ToObject<Patent>() as T,
-                _ => throw new Exception("Unhandled document type detected.")
-            };
-        }
+            DocumentType.LocalizedBook => jObject.ToObject<LocalizedBook>() as T,
+            DocumentType.Book => jObject.ToObject<Book>() as T,
+            DocumentType.Patent => jObject.ToObject<Patent>() as T,
+            _ => throw new Exception("Unhandled document type detected.")
+        };
     }
 }

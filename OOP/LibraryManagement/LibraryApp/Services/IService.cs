@@ -1,13 +1,12 @@
 ﻿using LibraryApp.Documents;
 
-namespace LibraryApp.Services
+namespace LibraryApp.Services;
+
+public interface IService<T> where T : Document
 {
-    public interface IService<T> where T : Document
-    {
-        T GetDocumentByTitle(string title);
+    T GetDocumentByTitle(string title);
 
-        IList<T> GetAllDocuments();
+    IList<T> GetAllDocuments();
 
-        void Create(T document);
-    }
+    void Create(T document);
 }
