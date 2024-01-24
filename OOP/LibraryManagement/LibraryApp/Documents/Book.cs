@@ -9,7 +9,7 @@ public class Book(
     DateTime datePublished,
     int numberOfPages,
     string publisher
-    ) : Document(title, authors, datePublished)
+    ) : BaseDocument(title, authors, datePublished)
 {
     [JsonPropertyName("isbn")]
     public string ISBN { get; set; }

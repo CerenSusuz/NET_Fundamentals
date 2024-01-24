@@ -7,7 +7,7 @@ public class Patent(
     string title,
     List<string> authors,
     DateTime datePublished,
-    DateTime expirationDate) : Document(title, authors, datePublished)
+    DateTime expirationDate) : BaseDocument(title, authors, datePublished)
 {
     [JsonPropertyName("expirationDate")]
     public DateTime ExpirationDate { get; set; } = expirationDate;

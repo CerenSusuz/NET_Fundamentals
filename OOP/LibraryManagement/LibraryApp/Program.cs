@@ -1,13 +1,14 @@
 ﻿using LibraryApp.Documents;
 using LibraryApp.Repositories;
 using LibraryApp.Services;
-using System;
 
 namespace LibraryApp;
 
 
 public static class Program
 {
+    private static readonly string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
     public static void Main()
     {
         var cacheExpiryPerType = new Dictionary<DocumentType, TimeSpan>
@@ -18,25 +19,40 @@ public static class Program
             {DocumentType.Magazine, TimeSpan.FromDays(365 * 100)}
         };
 
-        var documentCache = new DocumentCache(cacheExpiryPerType);
-        var repository = new JsonFileDocumentRepository<Document>(documentCache);
-        var service = new LibraryService<Document>(repository);
+        var serviceBooks = new BookService(new JsonFileDocumentRepository<Book>(new DocumentCache(cacheExpiryPerType), baseDirectory));
+        var servicePatents = new PatentService(new JsonFileDocumentRepository<Patent>(new DocumentCache(cacheExpiryPerType), baseDirectory));
+        var serviceLocalizedBooks = new LocalizedBookService(new JsonFileDocumentRepository<LocalizedBook>(new DocumentCache(cacheExpiryPerType), baseDirectory));
+        var serviceMagazines = new MagazineService(new JsonFileDocumentRepository<Magazine>(new DocumentCache(cacheExpiryPerType), baseDirectory));
 
         foreach (var document in CreateInitialDocuments())
         {
-            service.Create(document);
+            switch (document)
+            {
+                case LocalizedBook l:
+                    serviceLocalizedBooks.Create(l);
+                    break;
+                case Book book:
+                    serviceBooks.Create(book);
+                    break;
+                case Patent patent:
+                    servicePatents.Create(patent);
+                    break;
+                case Magazine magazine:
+                    serviceMagazines.Create(magazine);
+                    break;
+            }
         }
 
-        PrintDocument(service.GetDocumentByTitle("Don Quijote"));
+        PrintDocument(serviceBooks.GetDocumentByTitle("Ulysses"));
         Console.WriteLine("--");
-        PrintDocuments(service.GetDocumentsByType(DocumentType.Magazine));
+        PrintDocuments(serviceMagazines.GetAllDocuments());
         Console.WriteLine("--");
-        PrintDocuments(service.GetAllDocuments());
+        PrintDocuments(servicePatents.GetAllDocuments());
+        Console.WriteLine("--");
+        PrintDocuments(serviceLocalizedBooks.GetAllDocuments());
     }
 
-    private static IList<Document> CreateInitialDocuments()
-    {
-        return new List<Document>
+    private static IList<BaseDocument> CreateInitialDocuments() => new List<BaseDocument>
         {
             new Book(
                 title: "Ulysses",
@@ -69,9 +85,8 @@ public static class Program
             { Type = DocumentType.Magazine }
 
         };
-    }
 
-    private static void PrintDocument(Document document)
+    private static void PrintDocument(BaseDocument document)
     {
         if (document != null)
         {
@@ -79,7 +94,7 @@ public static class Program
         }
     }
 
-    private static void PrintDocuments(IList<Document> documents)
+    private static void PrintDocuments<T>(IList<T> documents) where T : BaseDocument
     {
         foreach (var doc in documents)
         {

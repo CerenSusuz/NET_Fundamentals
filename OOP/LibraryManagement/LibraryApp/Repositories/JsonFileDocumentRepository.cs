@@ -6,31 +6,34 @@ using LibraryApp.Services;
 
 namespace LibraryApp.Repositories;
 
-public class JsonFileDocumentRepository<T>(DocumentCache cache) : IRepository<T> where T : Document
+public partial class JsonFileDocumentRepository<T>(DocumentCache cache, string baseDirectory) : IRepository<T> where T : BaseDocument
 {
     private const string DocType = "documentType";
     private readonly DocumentCache _cache = cache;
-    private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private readonly string _baseDirectory = baseDirectory;
     private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true, IncludeFields = true };
 
     public T Read(string title)
     {
         var document = _cache.GetDocument<T>(title);
 
-        if (document == null)
+        if (document != null)
         {
-            var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
-
-            if (file != null)
-            {
-                var json = File.ReadAllText(file.FullName);
-                var jObject = JObject.Parse(json);
-                var docType = jObject[DocType].ToObject<DocumentType>();
-
-                document = Deserialize(jObject, docType);
-                _cache.SetDocument(document);
-            }
+            return document;
         }
+
+        var file = new DirectoryInfo(_baseDirectory).GetFiles().FirstOrDefault(f => f.Name.Contains(title));
+
+        if (file == null)
+        {
+            return null;
+        }
+
+        var json = File.ReadAllText(file.FullName);
+        var jObject = JObject.Parse(json);
+        var docType = jObject[DocType].ToObject<DocumentType>();
+        document = Deserialize(jObject, docType);
+        _cache.SetDocument(document);
 
         return document;
     }
@@ -57,9 +60,9 @@ public class JsonFileDocumentRepository<T>(DocumentCache cache) : IRepository<T>
 
     public void Create(T document)
     {
-        if (Read(document.Title) != null)
+        if (FileExists(document))
         {
-            throw new Exception("A document with this title and type already exists.");
+            throw new Exception("A document with this Title already exists.");
         }
 
         var jsonString = JsonSerializer.Serialize(document, _jsonOptions);
@@ -68,9 +71,14 @@ public class JsonFileDocumentRepository<T>(DocumentCache cache) : IRepository<T>
         File.WriteAllText(directory, jsonString);
     }
 
+    private bool FileExists(T document)
+    {
+        return File.Exists(Path.Combine(_baseDirectory, GetFileName(document)));
+    }
+
     private static string GetTitle(string fileName)
     {
-        var match = Regex.Match(fileName, @"^type_.*_(.*)_.*\.json$");
+        var match = Regex.Match(fileName, @"^type_.*_(.*?)(?=_).*\.json$");
 
         if (match.Success)
         {
@@ -85,15 +93,12 @@ public class JsonFileDocumentRepository<T>(DocumentCache cache) : IRepository<T>
         return $"type_{document.Type}_{document.Title}_{document.Id}.json";
     }
 
-    private static T Deserialize(JObject jObject, DocumentType docType)
+    private static T Deserialize(JObject jObject, DocumentType docType) => docType switch
     {
-        return docType switch
-        {
-            DocumentType.LocalizedBook => jObject.ToObject<LocalizedBook>() as T,
-            DocumentType.Book => jObject.ToObject<Book>() as T,
-            DocumentType.Patent => jObject.ToObject<Patent>() as T,
-            DocumentType.Magazine => jObject.ToObject<Magazine>() as T,
-            _ => throw new Exception("Unhandled document type detected.")
-        };
-    }
+        DocumentType.LocalizedBook => jObject.ToObject<LocalizedBook>() as T,
+        DocumentType.Book => jObject.ToObject<Book>() as T,
+        DocumentType.Patent => jObject.ToObject<Patent>() as T,
+        DocumentType.Magazine => jObject.ToObject<Magazine>() as T,
+        _ => throw new Exception("Unhandled document type detected.")
+    };
 }

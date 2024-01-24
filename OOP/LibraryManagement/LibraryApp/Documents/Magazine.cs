@@ -7,7 +7,7 @@ public class Magazine(
     string title,
     string publisher,
     int releaseNumber,
-    DateTime datePublished) : Document(title)
+    DateTime datePublished) : BaseDocument(title)
 {
     [JsonPropertyName("publisher")]
     public string Publisher { get; set; } = publisher;

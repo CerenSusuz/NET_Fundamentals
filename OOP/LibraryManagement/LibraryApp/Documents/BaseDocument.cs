@@ -2,7 +2,7 @@
 
 namespace LibraryApp.Documents;
 
-public abstract class Document
+public abstract class BaseDocument
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; } = Guid.NewGuid();
@@ -19,12 +19,12 @@ public abstract class Document
     [JsonPropertyName("documentType")]
     public virtual DocumentType Type { get; set; }
 
-    protected Document(string title)
+    protected BaseDocument(string title)
     {
         Title = title;
     }
 
-    protected Document(string title, List<string> authors, DateTime datePublished)
+    protected BaseDocument(string title, List<string> authors, DateTime datePublished)
     {
         Id = Guid.NewGuid();
         Title = title;

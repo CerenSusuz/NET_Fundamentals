@@ -2,7 +2,7 @@
 
 namespace LibraryApp.Repositories;
 
-public interface IRepository<T> where T : Document
+public interface IRepository<T> where T : BaseDocument
 {
     T Read(string title);
 
