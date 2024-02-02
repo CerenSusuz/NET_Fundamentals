@@ -1,0 +1,26 @@
+CREATE DATABASE ADONETDb;
+GO
+
+USE ADONETDb;
+GO
+
+CREATE TABLE dbo.Product(
+   Id INT IDENTITY PRIMARY KEY,
+   Name NVARCHAR(100),
+   Description NVARCHAR(500),
+   Weight FLOAT,
+   Height FLOAT,
+   Width FLOAT,
+   Length FLOAT
+);
+GO
+
+CREATE TABLE dbo.Orders(
+   Id INT IDENTITY PRIMARY KEY,
+   Status NVARCHAR(100),
+   CreatedDate DATETIME,
+   UpdatedDate DATETIME,
+   ProductId INT,
+   FOREIGN KEY (ProductId) REFERENCES Product(Id)
+);
+GO
