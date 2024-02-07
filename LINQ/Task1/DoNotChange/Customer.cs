@@ -1,7 +1,7 @@
-﻿namespace Task1.DoNotChange
+﻿namespace Task1.DoNotChange;
+
+public class Customer
 {
-    public class Customer
-    {
 		public string CustomerID { get; set; }
 		public string CompanyName { get; set; }
 		public string Address { get; set; }
@@ -13,4 +13,3 @@
 		public string Fax { get; set; }
 		public Order[] Orders { get; set; }
 	}
-}
