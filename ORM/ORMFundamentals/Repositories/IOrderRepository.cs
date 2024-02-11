@@ -2,12 +2,11 @@
 using System.Linq.Expressions;
 
 namespace ORMFundamentals.Repositories;
-
 public interface IOrderRepository
 {
-    Task<IEnumerable<Order>> GetAllOrders();
+    IEnumerable<Order> GetAllOrders();
 
-    Task<Order> GetOrderById(int id);
+    Order GetOrderById(int id);
 
     Task AddOrder(Order order);
 
@@ -15,7 +14,7 @@ public interface IOrderRepository
 
     Task DeleteOrder(int id);
 
-    Task<IEnumerable<Order>> GetOrdersByCondition(Expression<Func<Order, bool>> expression);
+    IEnumerable<Order> GetOrdersByCondition(Expression<Func<Order, bool>> expression);
 
     Task DeleteOrders(Expression<Func<Order, bool>> expression);
 }

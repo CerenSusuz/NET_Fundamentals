@@ -1,16 +1,19 @@
 ﻿using ORMFundamentals.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace ORMFundamentals.Repositories;
-
-public interface IProductRepository
+namespace ORMFundamentals.Repositories
 {
-    Task<IEnumerable<Product>> GetAllProducts();
+    public interface IProductRepository
+    {
+        IEnumerable<Product> GetAllProducts();
 
-    Task<Product> GetProductById(int id);
+        Product GetProductById(int id);
 
-    Task AddProduct(Product product);
+        Task AddProduct(Product product);
 
-    Task UpdateProduct(Product product);
+        Task UpdateProduct(Product product);
 
-    Task DeleteProduct(int id);
+        Task DeleteProduct(int id);
+    }
 }
