@@ -36,7 +36,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Product product)
+    public async Task<ActionResult<Product>> Update(int id, Product product)
     {
         if (id != product.Id)
         {
@@ -45,7 +45,7 @@ public class ProductsController : ControllerBase
 
         await _productService.Update(product);
 
-        return NoContent();
+        return Ok(product);
     }
 
     [HttpDelete("{id}")]
