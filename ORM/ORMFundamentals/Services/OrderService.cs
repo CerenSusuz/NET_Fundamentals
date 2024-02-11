@@ -12,14 +12,14 @@ public class OrderService : IOrderService
         _orderRepository = orderRepository;
     }
 
-    public async Task<IEnumerable<Order>> GetAll()
+    public IEnumerable<Order> GetAllOrders()
     {
-        return await _orderRepository.GetAllOrders();
+        return _orderRepository.GetAllOrders();
     }
 
-    public async Task<Order> GetOrderById(int id)
+    public Order GetOrderById(int id)
     {
-        return await _orderRepository.GetOrderById(id);
+        return _orderRepository.GetOrderById(id);
     }
 
     public async Task Add(Order order)
@@ -37,43 +37,43 @@ public class OrderService : IOrderService
         await _orderRepository.DeleteOrder(id);
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersByMonth(int month)
+    public IEnumerable<Order> GetOrdersByMonth(int month)
     {
-        return await _orderRepository.GetOrdersByCondition(o => o.CreatedDate.Month == month);
+        return _orderRepository.GetOrdersByCondition(order => order.CreatedDate.Month == month);
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersByStatus(Status status)
+    public IEnumerable<Order> GetOrdersByStatus(Status status)
     {
-        return await _orderRepository.GetOrdersByCondition(o => o.Status == status);
+        return _orderRepository.GetOrdersByCondition(order => order.Status == status);
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersByYear(int year)
+    public IEnumerable<Order> GetOrdersByYear(int year)
     {
-        return await _orderRepository.GetOrdersByCondition(o => o.CreatedDate.Year == year);
+        return _orderRepository.GetOrdersByCondition(order => order.CreatedDate.Year == year);
     }
 
-    public async Task<IEnumerable<Order>> GetOrdersByProduct(int productId)
+    public IEnumerable<Order> GetOrdersByProduct(int productId)
     {
-        return await _orderRepository.GetOrdersByCondition(o => o.ProductId == productId);
+        return _orderRepository.GetOrdersByCondition(order => order.ProductId == productId);
     }
 
     public async Task DeleteOrdersByMonth(int month)
     {
-        await _orderRepository.DeleteOrders(o => o.CreatedDate.Month == month);
+        await _orderRepository.DeleteOrders(order => order.CreatedDate.Month == month);
     }
 
     public async Task DeleteOrdersByStatus(Status status)
     {
-        await _orderRepository.DeleteOrders(o => o.Status == status);
+        await _orderRepository.DeleteOrders(order => order.Status == status);
     }
 
     public async Task DeleteOrdersByYear(int year)
     {
-        await _orderRepository.DeleteOrders(o => o.CreatedDate.Year == year);
+        await _orderRepository.DeleteOrders(order => order.CreatedDate.Year == year);
     }
 
     public async Task DeleteOrdersByProduct(int productId)
     {
-        await _orderRepository.DeleteOrders(o => o.ProductId == productId);
+        await _orderRepository.DeleteOrders(order => order.ProductId == productId);
     }
 }

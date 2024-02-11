@@ -4,9 +4,9 @@ namespace ORMFundamentals.Services;
 
 public interface IProductService
 {
-    Task<IEnumerable<Product>> GetAll();
+    IEnumerable<Product> GetAllProducts();
 
-    Task<Product> GetProductById(int id);
+    Product GetProductById(int id);
 
     Task Add(Product product);
 

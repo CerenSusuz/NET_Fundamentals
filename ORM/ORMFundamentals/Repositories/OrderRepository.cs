@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ORMFundamentals.Data;
+﻿using ORMFundamentals.Data;
 using ORMFundamentals.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace ORMFundamentals.Repositories
 {

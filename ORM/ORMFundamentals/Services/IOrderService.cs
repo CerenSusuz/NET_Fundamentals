@@ -4,9 +4,9 @@ namespace ORMFundamentals.Services;
 
 public interface IOrderService
 {
-    Task<IEnumerable<Order>> GetAll();
+    IEnumerable<Order> GetAllOrders();
 
-    Task<Order> GetOrderById(int id);
+    Order GetOrderById(int id);
 
     Task Add(Order order);
 
