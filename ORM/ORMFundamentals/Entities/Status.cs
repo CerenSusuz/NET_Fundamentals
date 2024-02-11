@@ -2,5 +2,11 @@
 
 public enum Status
 {
-    NotStarted, Loading, InProgress, Arrived, Unloading, Cancelled, Done
+    NotStarted,
+    Loading,
+    InProgress,
+    Arrived,
+    Unloading,
+    Cancelled,
+    Done
 }
