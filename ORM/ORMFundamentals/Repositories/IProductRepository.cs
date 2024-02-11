@@ -2,16 +2,7 @@
 
 namespace ORMFundamentals.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IBaseRepository<Product>
     {
-        IEnumerable<Product> GetAllProducts();
-
-        Product GetProductById(int id);
-
-        Task AddProduct(Product product);
-
-        Task UpdateProduct(Product product);
-
-        Task DeleteProduct(int id);
     }
 }

@@ -1,5 +1,3 @@
-@ORMFundamentals_HostAddress = http://localhost:5212
-
 GET {{ORMFundamentals_HostAddress}}/weatherforecast/
 Accept: application/json
 

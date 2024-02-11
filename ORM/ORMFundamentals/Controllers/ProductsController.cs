@@ -6,14 +6,9 @@ namespace ORMFundamentals.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController(IProductService productService) : ControllerBase
 {
-    private readonly IProductService _productService;
-
-    public ProductsController(IProductService productService)
-    {
-        _productService = productService;
-    }
+    private readonly IProductService _productService = productService;
 
     [HttpGet]
     public IEnumerable<Product> GetAll()
