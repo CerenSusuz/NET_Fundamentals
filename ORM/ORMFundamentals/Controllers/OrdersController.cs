@@ -16,22 +16,15 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Order>> GetAll()
+    public IEnumerable<Order> GetAll()
     {
-        return await _orderService.GetAll();
+        return _orderService.GetAllOrders();
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Order>> GetOrderById(int id)
+    public ActionResult<Order> GetOrderById(int id)
     {
-        var order = await _orderService.GetOrderById(id);
-
-        if (order == null)
-        {
-            return NotFound();
-        }
-
-        return order;
+       return this._orderService.GetOrderById(id) ?? new ActionResult<Order>(NotFound());
     }
 
     [HttpPost]

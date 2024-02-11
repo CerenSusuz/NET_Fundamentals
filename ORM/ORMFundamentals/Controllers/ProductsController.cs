@@ -16,22 +16,15 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Product>> GetAll()
+    public IEnumerable<Product> GetAll()
     {
-        return await _productService.GetAll();
+        return _productService.GetAllProducts();
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> GetProductById(int id)
+    public ActionResult<Product> GetProductById(int id)
     {
-        var product = await _productService.GetProductById(id);
-
-        if (product == null)
-        {
-            return NotFound();
-        }
-
-        return product;
+        return this._productService.GetProductById(id) ?? new ActionResult<Product>(NotFound());
     }
 
     [HttpPost]
