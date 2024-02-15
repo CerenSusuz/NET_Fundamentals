@@ -40,7 +40,7 @@ public class OrdersController(IOrderService orderService) : ControllerBase
 
         await _orderService.Update(order);
 
-        return Ok(order);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]

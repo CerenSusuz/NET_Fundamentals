@@ -13,6 +13,7 @@ public interface IOrderService
     Task Update(Order order);
 
     Task Delete(int id);
+
     IEnumerable<Order> GetOrdersByMonth(int month);
 
     IEnumerable<Order> GetOrdersByStatus(Status status);

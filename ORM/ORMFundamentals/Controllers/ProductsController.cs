@@ -40,7 +40,7 @@ public class ProductsController(IProductService productService) : ControllerBase
 
         await _productService.Update(product);
 
-        return Ok(product);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]

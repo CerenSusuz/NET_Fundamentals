@@ -1,54 +1,65 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ORMFundamentals.Data;
 using System.Linq.Expressions;
+using System.Xml.Linq;
 
 namespace ORMFundamentals.Repositories
 {
-    public abstract class BaseRepository<T>(AppDbContext context) : IBaseRepository<T> where T : class
+    public abstract class BaseRepository<TContext, T>: IBaseRepository<T> 
+        where T : class
+        where TContext : DbContext
     {
-        protected readonly AppDbContext _context = context;
+        protected readonly TContext DbContext;
+
+        private readonly DbSet<T> _dbSet;
+
+        protected BaseRepository(TContext dbContext)
+        {
+            DbContext = dbContext;
+            _dbSet = DbContext.Set<T>();
+        }
 
         public async Task<IEnumerable<T>> GetAll(bool trackChanges = true)
         {
             return trackChanges ?
-                await _context.Set<T>().ToListAsync() :
-                await _context.Set<T>().AsNoTracking().ToListAsync();
+                await _dbSet.ToListAsync() :
+                await _dbSet.AsNoTracking().ToListAsync();
         }
 
         public T GetById(int id)
         {
-            return _context.Set<T>().Find(id);
+            return _dbSet.Find(id);
         }
 
         public async Task Add(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _dbSet.AddAsync(entity);
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task Update(T entity)
         {
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            _dbSet.Update(entity);
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            var entity = await _context.Set<T>().FindAsync(id);
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            var entity = await _dbSet.FindAsync(id);
+            _dbSet.Remove(entity);
+            await DbContext.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetByCondition(Expression<Func<T, bool>> expression)
         {
-            return _context.Set<T>().Where(expression).ToList();
+            return _dbSet.Where(expression).ToList();
         }
 
         public async Task DeleteByCondition(Expression<Func<T, bool>> expression)
         {
-            var entities = _context.Set<T>().Where(expression);
-            _context.Set<T>().RemoveRange(entities);
-            await _context.SaveChangesAsync();
+            var entities = _dbSet.Where(expression);
+            _dbSet.RemoveRange(entities);
+            await DbContext.SaveChangesAsync();
         }
     }
 }
