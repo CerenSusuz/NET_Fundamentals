@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 class Program
 {
     static readonly HttpClient client = new();
+    static readonly HttpClientHandler handler = new() { UseCookies = true };
     private static readonly string[] urls =
     {
+        "http://localhost:8888/MyNameByCookies",
         "http://localhost:8888/MyNameByHeader",
         "http://localhost:8888/MyName",
         "http://localhost:8888/Information",
@@ -41,6 +44,8 @@ class Program
         {
             Console.WriteLine($"For url: {url}, received X-MyName header: {string.Join(",", values)}");
         }
+
+        PrintReceivedCookiesFrom(response);
     }
 
     private static async Task MaybePrintResponseContent(string url, HttpResponseMessage response)
@@ -49,6 +54,18 @@ class Program
         {
             string responseBody = await response.Content.ReadAsStringAsync();
             Console.WriteLine("Received name: " + responseBody);
+        }
+    }
+
+    private static void PrintReceivedCookiesFrom(HttpResponseMessage response)
+    {
+        var cookies = handler.CookieContainer.GetCookies(uri: response.RequestMessage.RequestUri);
+        foreach (Cookie cookie in cookies.Cast<Cookie>())
+        {
+            if (cookie.Name == "Cero from Cookie")
+            {
+                Console.WriteLine($"Received name from cookie: {cookie.Value}");
+            }
         }
     }
 }

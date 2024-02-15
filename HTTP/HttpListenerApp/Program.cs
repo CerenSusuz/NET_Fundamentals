@@ -59,6 +59,9 @@ class Program
                 response.StatusCode = 200;
                 response.Close();
                 break;
+            case "MyNameByCookies":
+                SetMyNameByCookies(context.Response);
+                break;
             default:
                 SetResponseStatus(context.Response, 404);
                 break;
@@ -79,5 +82,12 @@ class Program
         response.ContentLength64 = buffer.Length;
 
         await response.OutputStream.WriteAsync(buffer);
+    }
+
+    private static void SetMyNameByCookies(HttpListenerResponse response)
+    {
+        var cookie = new Cookie("MyName", "Cero from Cookie");
+        response.Cookies.Add(cookie);
+        response.StatusCode = 200;
     }
 }
