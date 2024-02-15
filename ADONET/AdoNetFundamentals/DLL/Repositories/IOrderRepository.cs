@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using AdoNetFundamentals.Entities;
+﻿using AdoNetFundamentals.Entities;
 
 public interface IOrderRepository
 {

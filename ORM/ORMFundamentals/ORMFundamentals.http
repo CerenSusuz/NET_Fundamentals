@@ -1,0 +1,4 @@
+GET {{ORMFundamentals_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,6 +1,4 @@
-﻿using FizzBuzzKata;
-
-namespace FizzBuzz;
+﻿namespace FizzBuzzKata;
 
 class Program
 {
