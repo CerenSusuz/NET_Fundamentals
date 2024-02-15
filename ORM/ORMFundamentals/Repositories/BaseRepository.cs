@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ORMFundamentals.Data;
 using System.Linq.Expressions;
-using System.Xml.Linq;
 
 namespace ORMFundamentals.Repositories
 {
