@@ -53,6 +53,12 @@ class Program
             case "ServerError":
                 SetResponseStatus(context.Response, 500);
                 break;
+            case "MyNameByHeader":
+                var response = context.Response;
+                response.Headers.Add("X-MyName", "Ceren");
+                response.StatusCode = 200;
+                response.Close();
+                break;
             default:
                 SetResponseStatus(context.Response, 404);
                 break;
@@ -72,6 +78,6 @@ class Program
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(name);
         response.ContentLength64 = buffer.Length;
 
-        await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+        await response.OutputStream.WriteAsync(buffer);
     }
 }

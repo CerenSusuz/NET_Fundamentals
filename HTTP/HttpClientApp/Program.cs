@@ -7,6 +7,7 @@ class Program
     static readonly HttpClient client = new();
     private static readonly string[] urls =
     {
+        "http://localhost:8888/MyNameByHeader",
         "http://localhost:8888/MyName",
         "http://localhost:8888/Information",
         "http://localhost:8888/Success",
@@ -35,6 +36,11 @@ class Program
         HttpResponseMessage response = await client.GetAsync(url);
         Console.WriteLine($"For url: {url}, received status code: {response.StatusCode}");
         await MaybePrintResponseContent(url, response);
+
+        if (response.Headers.TryGetValues("X-MyName", out var values))
+        {
+            Console.WriteLine($"For url: {url}, received X-MyName header: {string.Join(",", values)}");
+        }
     }
 
     private static async Task MaybePrintResponseContent(string url, HttpResponseMessage response)
