@@ -1,20 +1,26 @@
-let sentence = "I can eat bananas all day";
+const sentence = "I can eat bananas all day";
 let word = sentence.slice(10, 17);
-alert(word.toUpperCase());
+console.log(word.toUpperCase());
 
 let cars = ["Saab", "Volvo", "BMW"];
 
-let bmw = cars[2];
+const bmw = cars.find(car => car === "BMW");
 console.log(bmw);
 
-cars[0] = "Mercedes";
+cars = ["Mercedes", ...cars.slice(1)];
 console.log(cars);
 
-cars.pop();
-console.log(cars);
+let newCars = [...cars];
+newCars.pop();
+console.log(newCars);
 
-cars.push("Audi");
-console.log(cars);
+newCars = [...newCars, "Audi"];
+console.log(newCars);
 
-cars.splice(1, 2);
-console.log(cars);
+newCars = newCars.filter(car => car !== "Volvo" && car !== "Audi") ;
+console.log(newCars);
+
+const cars2 = ["Saab", "Volvo", "BMW"];
+
+const bmw2 = cars2.find(car => car === "BMW");
+console.log(bmw2);
