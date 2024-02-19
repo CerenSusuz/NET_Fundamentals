@@ -39,40 +39,40 @@ class Program
                 await SendNameInResponse(context.Response);
                 break;
             case "Information":
-                SetResponseStatus(context.Response, 100);
+                SetResponseStatus(context.Response, HttpStatusCode.Continue);
                 break;
             case "Success":
-                SetResponseStatus(context.Response, 200);
+                SetResponseStatus(context.Response, HttpStatusCode.OK);
                 break;
             case "Redirection":
-                SetResponseStatus(context.Response, 300);
+                SetResponseStatus(context.Response, HttpStatusCode.MultipleChoices);
                 break;
             case "ClientError":
-                SetResponseStatus(context.Response, 400);
+                SetResponseStatus(context.Response, HttpStatusCode.BadRequest);
                 break;
             case "ServerError":
-                SetResponseStatus(context.Response, 500);
+                SetResponseStatus(context.Response, HttpStatusCode.InternalServerError);
                 break;
             case "MyNameByHeader":
-                var response = context.Response;
-                response.Headers.Add("X-MyName", "Ceren");
-                response.StatusCode = 200;
-                response.Close();
+                var response1 = context.Response;
+                response1.Headers.Add("X-MyName", "Ceren");
+                SetResponseStatus(response1, HttpStatusCode.OK);
+                response1.Close();
                 break;
             case "MyNameByCookies":
                 SetMyNameByCookies(context.Response);
                 break;
             default:
-                SetResponseStatus(context.Response, 404);
+                SetResponseStatus(context.Response, HttpStatusCode.NotFound);
                 break;
         }
 
         context.Response.Close();
     }
 
-    private static void SetResponseStatus(HttpListenerResponse response, int statusCode)
+    private static void SetResponseStatus(HttpListenerResponse response, HttpStatusCode statusCode)
     {
-        response.StatusCode = statusCode;
+        response.StatusCode = (int)statusCode;
     }
 
     private static async Task SendNameInResponse(HttpListenerResponse response)
@@ -81,13 +81,13 @@ class Program
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(name);
         response.ContentLength64 = buffer.Length;
 
-        await response.OutputStream.WriteAsync(buffer);
+        await response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
     }
 
     private static void SetMyNameByCookies(HttpListenerResponse response)
     {
         var cookie = new Cookie("MyName", "Cero from Cookie");
         response.Cookies.Add(cookie);
-        response.StatusCode = 200;
+        SetResponseStatus(response, HttpStatusCode.OK);
     }
 }

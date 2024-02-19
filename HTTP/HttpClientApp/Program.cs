@@ -60,9 +60,9 @@ class Program
     private static void PrintReceivedCookiesFrom(HttpResponseMessage response)
     {
         var cookies = handler.CookieContainer.GetCookies(uri: response.RequestMessage.RequestUri);
-        foreach (Cookie cookie in cookies.Cast<Cookie>())
+        foreach (Cookie cookie in cookies)
         {
-            if (cookie.Name == "Cero from Cookie")
+            if (string.Equals(cookie.Name, "MyName"))
             {
                 Console.WriteLine($"Received name from cookie: {cookie.Value}");
             }
